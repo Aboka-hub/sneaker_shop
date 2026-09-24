@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:shop/components/Banner/S/banner_s_style_1.dart';
-import 'package:shop/components/Banner/S/banner_s_style_5.dart';
-import 'package:shop/constants.dart';
-import 'package:shop/route/screen_export.dart';
+import 'package:sneaker_shop/components/Banner/S/banner_s_style_1.dart';
+import 'package:sneaker_shop/components/Banner/S/banner_s_style_5.dart';
+import 'package:sneaker_shop/constants.dart';
+import 'package:sneaker_shop/route/screen_export.dart';
 
 import 'components/best_sellers.dart';
 import 'components/flash_sale.dart';
@@ -31,11 +31,11 @@ class HomeScreen extends StatelessWidget {
                   // While loading use 👇
                   // const BannerMSkelton(),‚
                   BannerSStyle1(
-                    title: "New \narrival",
+                    title: "New \nsneakers",
                     subtitle: "SPECIAL OFFER",
                     discountParcent: 50,
                     press: () {
-                      Navigator.pushNamed(context, onSaleScreenRoute);
+                      Navigator.pushNamed(context, discoverScreenRoute);
                     },
                   ),
                   const SizedBox(height: defaultPadding / 4),
@@ -54,11 +54,11 @@ class HomeScreen extends StatelessWidget {
                   // While loading use 👇
                   // const BannerSSkelton(),
                   BannerSStyle5(
-                    title: "Black \nfriday",
+                    title: "Running \nweek",
                     subtitle: "50% Off",
-                    bottomText: "Collection".toUpperCase(),
+                    bottomText: "Sneakers".toUpperCase(),
                     press: () {
-                      Navigator.pushNamed(context, onSaleScreenRoute);
+                      Navigator.pushNamed(context, discoverScreenRoute);
                     },
                   ),
                   const SizedBox(height: defaultPadding / 4),

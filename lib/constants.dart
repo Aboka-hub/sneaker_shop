@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
-// Just for demo
-const productDemoImg1 = "https://i.imgur.com/CGCyp1d.png";
-const productDemoImg2 = "https://i.imgur.com/AkzWQuJ.png";
-const productDemoImg3 = "https://i.imgur.com/J7mGZ12.png";
-const productDemoImg4 = "https://i.imgur.com/q9oF9Yq.png";
-const productDemoImg5 = "https://i.imgur.com/MsppAcx.png";
-const productDemoImg6 = "https://i.imgur.com/JfyZlnO.png";
-
-// End For demo
+// Демо-фото кроссовок лежат в assets, поэтому приложение работает без интернета
+const sneakerImg1 = "assets/images/products/jordan_1.webp";
+const sneakerImg2 = "assets/images/products/jordan_2.webp";
+const sneakerImg3 = "assets/images/products/jordan_3.webp";
+const sneakerImg4 = "assets/images/products/jordan_4.webp";
+const sneakerImg5 = "assets/images/products/cleats_1.webp";
+const sneakerImg6 = "assets/images/products/cleats_2.webp";
+const sneakerImg7 = "assets/images/products/puma_1.webp";
+const sneakerImg8 = "assets/images/products/puma_2.webp";
+const sneakerImg9 = "assets/images/products/puma_3.webp";
+const sneakerImg10 = "assets/images/products/offwhite_1.webp";
+const sneakerImg11 = "assets/images/products/offwhite_2.webp";
+const sneakerImg12 = "assets/images/products/offwhite_red_1.webp";
+const sneakerImg13 = "assets/images/products/offwhite_red_2.webp";
+const sneakerImg14 = "assets/images/products/pampi_1.webp";
+const sneakerImg15 = "assets/images/products/red_1.webp";
+const sneakerImg16 = "assets/images/products/golden_1.webp";
 
 const grandisExtendedFont = "Grandis Extended";
 

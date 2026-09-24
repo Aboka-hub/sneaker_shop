@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shop/components/cart_button.dart';
-import 'package:shop/components/custom_modal_bottom_sheet.dart';
-import 'package:shop/components/network_image_with_loader.dart';
-import 'package:shop/screens/product/views/added_to_cart_message_screen.dart';
-import 'package:shop/screens/product/views/components/product_list_tile.dart';
-import 'package:shop/screens/product/views/location_permission_store_availability_screen.dart';
-import 'package:shop/screens/product/views/size_guide_screen.dart';
+import 'package:sneaker_shop/components/cart_button.dart';
+import 'package:sneaker_shop/components/custom_modal_bottom_sheet.dart';
+import 'package:sneaker_shop/components/network_image_with_loader.dart';
+import 'package:sneaker_shop/screens/product/views/added_to_cart_message_screen.dart';
+import 'package:sneaker_shop/screens/product/views/components/product_list_tile.dart';
+import 'package:sneaker_shop/screens/product/views/location_permission_store_availability_screen.dart';
 
 import '../../../constants.dart';
 import 'components/product_quantity.dart';
@@ -47,7 +46,7 @@ class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
               children: [
                 const BackButton(),
                 Text(
-                  "Sleeveless Ruffle",
+                  "Air Jordan 1 Retro High",
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
                 IconButton(
@@ -66,7 +65,7 @@ class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
                     padding: EdgeInsets.symmetric(horizontal: defaultPadding),
                     child: AspectRatio(
                       aspectRatio: 1.05,
-                      child: NetworkImageWithLoader(productDemoImg1),
+                      child: NetworkImageWithLoader(sneakerImg1),
                     ),
                   ),
                 ),
@@ -107,7 +106,7 @@ class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
                 ),
                 SliverToBoxAdapter(
                   child: SelectedSize(
-                    sizes: const ["S", "M", "L", "XL", "XXL"],
+                    sizes: const ["39", "40", "41", "42", "43", "44"],
                     selectedIndex: 1,
                     press: (value) {},
                   ),
@@ -119,10 +118,10 @@ class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
                     svgSrc: "assets/icons/Sizeguid.svg",
                     isShowBottomBorder: true,
                     press: () {
-                      customModalBottomSheet(
-                        context,
-                        height: MediaQuery.of(context).size.height * 0.9,
-                        child: const SizeGuideScreen(),
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("EU 40 ≈ US 7 ≈ 25.5 cm"),
+                        ),
                       );
                     },
                   ),

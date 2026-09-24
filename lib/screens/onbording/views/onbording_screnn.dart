@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:shop/components/dot_indicators.dart';
-import 'package:shop/constants.dart';
-import 'package:shop/route/route_constants.dart';
+import 'package:sneaker_shop/components/dot_indicators.dart';
+import 'package:sneaker_shop/constants.dart';
+import 'package:sneaker_shop/route/route_constants.dart';
 
 import 'components/onbording_content.dart';
 
@@ -20,16 +20,16 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
     Onbord(
       image: "assets/Illustration/Illustration-0.png",
       imageDarkTheme: "assets/Illustration/Illustration_darkTheme_0.png",
-      title: "Find the item you’ve \nbeen looking for",
+      title: "Find the sneakers \nyou’ve been hunting",
       description:
-          "Here you’ll see rich varieties of goods, carefully classified for seamless browsing experience.",
+          "Nike, Puma, Off White and more — the whole drop in one place, sorted by model and size.",
     ),
     Onbord(
       image: "assets/Illustration/Illustration-1.png",
       imageDarkTheme: "assets/Illustration/Illustration_darkTheme_1.png",
-      title: "Get those shopping \nbags filled",
+      title: "Pick your size \nand your pair",
       description:
-          "Add any item you want to your cart, or save it on your wishlist, so you don’t miss it in your future purchases.",
+          "Add sneakers to the cart or save them to your wishlist so you don’t miss a restock.",
     ),
     Onbord(
       image: "assets/Illustration/Illustration-2.png",
@@ -42,14 +42,14 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
       imageDarkTheme: "assets/Illustration/Illustration_darkTheme_3.png",
       title: "Package tracking",
       description:
-          "In particular, Shoplon can pack your orders, and help you seamlessly manage your shipments.",
+          "Sneaker Hub packs your order and lets you follow the delivery step by step.",
     ),
     Onbord(
       image: "assets/Illustration/Illustration-4.png",
       imageDarkTheme: "assets/Illustration/Illustration_darkTheme_4.png",
       title: "Nearby stores",
       description:
-          "Easily track nearby shops, browse through their items and get information about their prodcuts.",
+          "Check which store nearby has your size in stock and pick the pair up the same day.",
     ),
   ];
 

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'package:shop/components/Banner/L/banner_l.dart';
+import 'package:sneaker_shop/components/Banner/L/banner_l.dart';
 
 import '../../../constants.dart';
 
 class BannerLStyle1 extends StatelessWidget {
   const BannerLStyle1({
     super.key,
-    this.image = "https://i.imgur.com/wpl37Kz.png",
+    this.image = "assets/images/products/jordan_3.webp",
     required this.title,
     required this.press,
     this.subtitle,

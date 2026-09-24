@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:shop/components/Banner/M/banner_m_style_1.dart';
-import 'package:shop/components/Banner/M/banner_m_style_2.dart';
-import 'package:shop/components/Banner/M/banner_m_style_3.dart';
-import 'package:shop/components/Banner/M/banner_m_style_4.dart';
-import 'package:shop/components/dot_indicators.dart';
+import 'package:sneaker_shop/components/Banner/M/banner_m_style_1.dart';
+import 'package:sneaker_shop/components/Banner/M/banner_m_style_2.dart';
+import 'package:sneaker_shop/components/Banner/M/banner_m_style_3.dart';
+import 'package:sneaker_shop/components/Banner/M/banner_m_style_4.dart';
+import 'package:sneaker_shop/components/dot_indicators.dart';
 
 import '../../../../constants.dart';
 
@@ -26,23 +26,23 @@ class _OffersCarouselState extends State<OffersCarousel> {
   // Offers List
   List offers = [
     BannerMStyle1(
-      text: "New items with \nFree shipping",
+      text: "New drops with \nFree shipping",
       press: () {},
     ),
     BannerMStyle2(
-      title: "Black \nfriday",
-      subtitle: "Collection",
+      title: "Jordan \nweek",
+      subtitle: "Retro collection",
       discountParcent: 50,
       press: () {},
     ),
     BannerMStyle3(
-      title: "Grab \nyours now",
+      title: "Grab \nyour pair",
       discountParcent: 50,
       press: () {},
     ),
     BannerMStyle4(
       // image: , user your image
-      title: "SUMMER \nSALE",
+      title: "RUNNING \nSALE",
       subtitle: "SPECIAL OFFER",
       discountParcent: 80,
       press: () {},

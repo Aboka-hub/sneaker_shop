@@ -12,48 +12,49 @@ class CategoryModel {
 }
 
 final List<CategoryModel> demoCategoriesWithImage = [
-  CategoryModel(title: "Woman’s", image: "https://i.imgur.com/5M89G2P.png"),
-  CategoryModel(title: "Man’s", image: "https://i.imgur.com/UM3GdWg.png"),
-  CategoryModel(title: "Kid’s", image: "https://i.imgur.com/Lp0D6k5.png"),
-  CategoryModel(title: "Accessories", image: "https://i.imgur.com/3mSE5sN.png"),
+  CategoryModel(title: "Men’s", image: "assets/images/products/jordan_4.webp"),
+  CategoryModel(title: "Women’s", image: "assets/images/products/golden_1.webp"),
+  CategoryModel(title: "Running", image: "assets/images/products/puma_2.webp"),
+  CategoryModel(title: "Kid’s", image: "assets/images/products/pampi_1.webp"),
 ];
 
 final List<CategoryModel> demoCategories = [
   CategoryModel(
-    title: "On sale",
-    svgSrc: "assets/icons/Sale.svg",
+    title: "Sneakers",
+    svgSrc: "assets/icons/Man&Woman.svg",
     subCategories: [
-      CategoryModel(title: "All Clothing"),
-      CategoryModel(title: "New In"),
-      CategoryModel(title: "Coats & Jackets"),
-      CategoryModel(title: "Dresses"),
-      CategoryModel(title: "Jeans"),
+      CategoryModel(title: "All sneakers"),
+      CategoryModel(title: "New arrivals"),
+      CategoryModel(title: "Lifestyle"),
+      CategoryModel(title: "Retro"),
+      CategoryModel(title: "High tops"),
     ],
   ),
   CategoryModel(
-    title: "Man’s & Woman’s",
-    svgSrc: "assets/icons/Man&Woman.svg",
+    title: "Sport",
+    svgSrc: "assets/icons/Sale.svg",
     subCategories: [
-      CategoryModel(title: "All Clothing"),
-      CategoryModel(title: "New In"),
-      CategoryModel(title: "Coats & Jackets"),
+      CategoryModel(title: "Running"),
+      CategoryModel(title: "Basketball"),
+      CategoryModel(title: "Football boots"),
     ],
   ),
   CategoryModel(
     title: "Kids",
     svgSrc: "assets/icons/Child.svg",
     subCategories: [
-      CategoryModel(title: "All Clothing"),
-      CategoryModel(title: "New In"),
-      CategoryModel(title: "Coats & Jackets"),
+      CategoryModel(title: "Boys"),
+      CategoryModel(title: "Girls"),
+      CategoryModel(title: "First steps"),
     ],
   ),
   CategoryModel(
-    title: "Accessories",
+    title: "Care & laces",
     svgSrc: "assets/icons/Accessories.svg",
     subCategories: [
-      CategoryModel(title: "All Clothing"),
-      CategoryModel(title: "New In"),
+      CategoryModel(title: "Cleaning kits"),
+      CategoryModel(title: "Laces"),
+      CategoryModel(title: "Socks"),
     ],
   ),
 ];

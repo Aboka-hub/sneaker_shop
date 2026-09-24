@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:shop/screens/auth/views/components/sign_up_form.dart';
-import 'package:shop/route/route_constants.dart';
+import 'package:sneaker_shop/screens/auth/views/components/sign_up_form.dart';
+import 'package:sneaker_shop/route/route_constants.dart';
 
 import '../../../constants.dart';
 
@@ -56,10 +56,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             children: [
                               TextSpan(
                                 recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-                                    Navigator.pushNamed(
-                                        context, termsOfServicesScreenRoute);
-                                  },
+                                  ..onTap = () {},
                                 text: " Terms of service ",
                                 style: const TextStyle(
                                   color: primaryColor,

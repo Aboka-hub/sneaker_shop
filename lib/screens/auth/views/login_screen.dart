@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop/constants.dart';
-import 'package:shop/route/route_constants.dart';
+import 'package:sneaker_shop/constants.dart';
+import 'package:sneaker_shop/route/route_constants.dart';
 
 import 'components/login_form.dart';
 
@@ -45,8 +45,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: TextButton(
                       child: const Text("Forgot password"),
                       onPressed: () {
-                        Navigator.pushNamed(
-                            context, passwordRecoveryScreenRoute);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("Password recovery is not connected yet"),
+                          ),
+                        );
                       },
                     ),
                   ),

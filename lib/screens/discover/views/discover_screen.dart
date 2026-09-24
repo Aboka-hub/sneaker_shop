@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shop/constants.dart';
-import 'package:shop/models/category_model.dart';
-import 'package:shop/screens/search/views/components/search_form.dart';
+import 'package:sneaker_shop/constants.dart';
+import 'package:sneaker_shop/models/category_model.dart';
+import 'package:sneaker_shop/screens/search/views/components/search_form.dart';
 
 import 'components/expansion_category.dart';
 
@@ -23,7 +23,7 @@ class DiscoverScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(
                   horizontal: defaultPadding, vertical: defaultPadding / 2),
               child: Text(
-                "Categories",
+                "Sneaker categories",
                 style: Theme.of(context).textTheme.titleSmall,
               ),
             ),

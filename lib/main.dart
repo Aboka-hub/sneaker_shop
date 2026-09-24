@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shop/route/route_constants.dart';
-import 'package:shop/route/router.dart' as router;
-import 'package:shop/theme/app_theme.dart';
+import 'package:sneaker_shop/route/route_constants.dart';
+import 'package:sneaker_shop/route/router.dart' as router;
+import 'package:sneaker_shop/theme/app_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Shop Template by The Flutter Way',
+      title: 'Sneaker Hub',
       theme: AppTheme.lightTheme(context),
       // Dark theme is inclided in the Full template
       themeMode: ThemeMode.light,

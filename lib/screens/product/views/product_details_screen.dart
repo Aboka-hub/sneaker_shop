@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:shop/components/buy_full_ui_kit.dart';
-import 'package:shop/components/cart_button.dart';
-import 'package:shop/components/custom_modal_bottom_sheet.dart';
-import 'package:shop/components/product/product_card.dart';
-import 'package:shop/constants.dart';
-import 'package:shop/screens/product/views/product_returns_screen.dart';
+import 'package:sneaker_shop/components/cart_button.dart';
+import 'package:sneaker_shop/components/custom_modal_bottom_sheet.dart';
+import 'package:sneaker_shop/components/product/product_card.dart';
+import 'package:sneaker_shop/constants.dart';
+import 'package:sneaker_shop/models/product_model.dart';
+import 'package:sneaker_shop/screens/product/views/product_returns_screen.dart';
 
-import 'package:shop/route/screen_export.dart';
+import 'package:sneaker_shop/route/screen_export.dart';
 
 import 'components/notify_me_card.dart';
 import 'components/product_images.dart';
@@ -26,7 +26,7 @@ class ProductDetailsScreen extends StatelessWidget {
     return Scaffold(
       bottomNavigationBar: isProductAvailable
           ? CartButton(
-              price: 140,
+              price: 149.99,
               press: () {
                 customModalBottomSheet(
                   context,
@@ -37,7 +37,7 @@ class ProductDetailsScreen extends StatelessWidget {
             )
           :
 
-          /// If profuct is not available then show [NotifyMeCard]
+          /// Если товара нет в наличии, показываем [NotifyMeCard]
           NotifyMeCard(
               isNotify: false,
               onChanged: (value) {},
@@ -57,41 +57,38 @@ class ProductDetailsScreen extends StatelessWidget {
               ],
             ),
             const ProductImages(
-              images: [productDemoImg1, productDemoImg2, productDemoImg3],
+              images: [sneakerImg1, sneakerImg2, sneakerImg3, sneakerImg4],
             ),
             ProductInfo(
-              brand: "LIPSY LONDON",
-              title: "Sleeveless Ruffle",
+              brand: "NIKE",
+              title: "Air Jordan 1 Retro High",
               isAvailable: isProductAvailable,
               description:
-                  "A cool gray cap in soft corduroy. Watch me.' By buying cotton products from Lindex, you’re supporting more responsibly...",
+                  "Легендарный силуэт 1985 года: кожаный верх, перфорация на мыске "
+                  "для вентиляции и амортизация Air в подошве. Универсальная пара "
+                  "и для города, и для площадки.",
               rating: 4.4,
               numOfReviews: 126,
             ),
             ProductListTile(
               svgSrc: "assets/icons/Product.svg",
               title: "Product Details",
-              press: () {
-                customModalBottomSheet(
-                  context,
-                  height: MediaQuery.of(context).size.height * 0.92,
-                  child: const BuyFullKit(
-                      images: ["assets/screens/Product detail.png"]),
-                );
-              },
+              press: () => _showInfoSheet(
+                context,
+                "Product Details",
+                "Верх: натуральная кожа. Подошва: резина.\n"
+                    "Тип фиксации: шнуровка.\nСтрана производства: Вьетнам.",
+              ),
             ),
             ProductListTile(
               svgSrc: "assets/icons/Delivery.svg",
               title: "Shipping Information",
-              press: () {
-                customModalBottomSheet(
-                  context,
-                  height: MediaQuery.of(context).size.height * 0.92,
-                  child: const BuyFullKit(
-                    images: ["assets/screens/Shipping information.png"],
-                  ),
-                );
-              },
+              press: () => _showInfoSheet(
+                context,
+                "Shipping Information",
+                "Доставка по городу — 1–2 дня, по стране — 3–7 дней.\n"
+                    "Бесплатно при заказе от \$150.",
+              ),
             ),
             ProductListTile(
               svgSrc: "assets/icons/Return.svg",
@@ -119,14 +116,6 @@ class ProductDetailsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            ProductListTile(
-              svgSrc: "assets/icons/Chat.svg",
-              title: "Reviews",
-              isShowBottomBorder: true,
-              press: () {
-                Navigator.pushNamed(context, productReviewsScreenRoute);
-              },
-            ),
             SliverPadding(
               padding: const EdgeInsets.all(defaultPadding),
               sliver: SliverToBoxAdapter(
@@ -141,19 +130,25 @@ class ProductDetailsScreen extends StatelessWidget {
                 height: 220,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: 5,
+                  itemCount: demoBestSellersProducts.length,
                   itemBuilder: (context, index) => Padding(
                     padding: EdgeInsets.only(
                         left: defaultPadding,
-                        right: index == 4 ? defaultPadding : 0),
+                        right: index == demoBestSellersProducts.length - 1
+                            ? defaultPadding
+                            : 0),
                     child: ProductCard(
-                      image: productDemoImg2,
-                      title: "Sleeveless Tiered Dobby Swing Dress",
-                      brandName: "LIPSY LONDON",
-                      price: 24.65,
-                      priceAfetDiscount: index.isEven ? 20.99 : null,
-                      dicountpercent: index.isEven ? 25 : null,
-                      press: () {},
+                      image: demoBestSellersProducts[index].image,
+                      title: demoBestSellersProducts[index].title,
+                      brandName: demoBestSellersProducts[index].brandName,
+                      price: demoBestSellersProducts[index].price,
+                      priceAfetDiscount:
+                          demoBestSellersProducts[index].priceAfetDiscount,
+                      dicountpercent:
+                          demoBestSellersProducts[index].dicountpercent,
+                      press: () {
+                        Navigator.pushNamed(context, productDetailsScreenRoute);
+                      },
                     ),
                   ),
                 ),
@@ -162,6 +157,24 @@ class ProductDetailsScreen extends StatelessWidget {
             const SliverToBoxAdapter(
               child: SizedBox(height: defaultPadding),
             )
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showInfoSheet(BuildContext context, String title, String body) {
+    customModalBottomSheet(
+      context,
+      height: MediaQuery.of(context).size.height * 0.5,
+      child: Padding(
+        padding: const EdgeInsets.all(defaultPadding),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(title, style: Theme.of(context).textTheme.titleMedium),
+            const SizedBox(height: defaultPadding),
+            Text(body),
           ],
         ),
       ),
