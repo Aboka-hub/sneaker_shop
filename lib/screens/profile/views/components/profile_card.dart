@@ -28,10 +28,13 @@ class ProfileCard extends StatelessWidget {
       onTap: press,
       leading: CircleAvatar(
         radius: 28,
-        child: NetworkImageWithLoader(
-          imageSrc,
-          radius: 100,
-        ),
+        backgroundColor: primaryColor.withOpacity(0.15),
+        child: imageSrc.isEmpty
+            ? const Icon(Icons.person, color: primaryColor, size: 28)
+            : NetworkImageWithLoader(
+                imageSrc,
+                radius: 100,
+              ),
       ),
       title: Row(
         children: [

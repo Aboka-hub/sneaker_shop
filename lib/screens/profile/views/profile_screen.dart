@@ -17,7 +17,7 @@ class ProfileScreen extends StatelessWidget {
           ProfileCard(
             name: "Alex Runner",
             email: "alex@sneakerhub.com",
-            imageSrc: "https://i.imgur.com/IXnwbLk.png",
+            imageSrc: "",
             press: () {},
           ),
           const SizedBox(height: defaultPadding),
