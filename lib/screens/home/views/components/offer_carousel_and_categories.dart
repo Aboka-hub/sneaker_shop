@@ -14,8 +14,6 @@ class OffersCarouselAndCategories extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // While loading use 👇
-        // const OffersSkelton(),
         const OffersCarousel(),
         const SizedBox(height: defaultPadding / 2),
         Padding(
@@ -25,8 +23,6 @@ class OffersCarouselAndCategories extends StatelessWidget {
             style: Theme.of(context).textTheme.titleSmall,
           ),
         ),
-        // While loading use 👇
-        // const CategoriesSkelton(),
         const Categories(),
       ],
     );

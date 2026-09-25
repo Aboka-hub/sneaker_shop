@@ -47,7 +47,6 @@ class LogInForm extends StatelessWidget {
           const SizedBox(height: defaultPadding),
           TextFormField(
             onSaved: (pass) {
-              // Password
             },
             validator: passwordValidator.call,
             obscureText: true,

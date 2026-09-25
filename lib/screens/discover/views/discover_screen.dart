@@ -27,10 +27,6 @@ class DiscoverScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleSmall,
               ),
             ),
-            // While loading use 👇
-            // const Expanded(
-            //   child: DiscoverCategoriesSkelton(),
-            // ),
             Expanded(
               child: ListView.builder(
                 itemCount: demoCategories.length,

@@ -1,4 +1,3 @@
-// Демо-каталог кроссовок. В реальном приложении эти списки приходят с бэкенда.
 import 'package:sneaker_shop/constants.dart';
 
 class ProductModel {
