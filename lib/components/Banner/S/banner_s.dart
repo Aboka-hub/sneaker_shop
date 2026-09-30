@@ -18,6 +18,7 @@ class BannerS extends StatelessWidget {
     return AspectRatio(
       aspectRatio: 2.56,
       child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
         onTap: press,
         child: Stack(
           children: [

@@ -8,6 +8,8 @@ import 'package:sneaker_shop/components/Banner/M/banner_m_style_4.dart';
 import 'package:sneaker_shop/components/dot_indicators.dart';
 
 import '../../../../constants.dart';
+import 'package:sneaker_shop/l10n/l10n.dart';
+import 'package:sneaker_shop/route/route_constants.dart';
 
 class OffersCarousel extends StatefulWidget {
   const OffersCarousel({
@@ -23,37 +25,43 @@ class _OffersCarouselState extends State<OffersCarousel> {
   late PageController _pageController;
   late Timer _timer;
 
-  // Offers List
-  List offers = [
-    BannerMStyle1(
-      text: "New drops with \nFree shipping",
-      press: () {},
-    ),
-    BannerMStyle2(
-      title: "Jordan \nweek",
-      subtitle: "Retro collection",
-      discountParcent: 50,
-      press: () {},
-    ),
-    BannerMStyle3(
-      title: "Grab \nyour pair",
-      discountParcent: 50,
-      press: () {},
-    ),
-    BannerMStyle4(
-      // image: , user your image
-      title: "RUNNING \nSALE",
-      subtitle: "SPECIAL OFFER",
-      discountParcent: 80,
-      press: () {},
-    ),
-  ];
+  List<Widget> _offers(BuildContext context) => [
+        BannerMStyle1(
+          text: tr(context, "New drops with \nFree shipping"),
+          press: () => _open(context, "Air Jordan 4 Retro"),
+        ),
+        BannerMStyle2(
+          title: tr(context, "Jordan \nweek"),
+          subtitle: tr(context, "Retro collection"),
+          discountParcent: 50,
+          press: () => _open(context, "Air Jordan 1 Red & Black"),
+        ),
+        BannerMStyle3(
+          title: tr(context, "Grab \nyour pair"),
+          discountParcent: 50,
+          press: () => _open(context, "Future Rider Neon Pack"),
+        ),
+        BannerMStyle4(
+          title: tr(context, "RUNNING \nSALE"),
+          subtitle: tr(context, "SPECIAL OFFER"),
+          discountParcent: 80,
+          press: () => _open(context, "Off White Court Sneakers"),
+        ),
+      ];
+
+  void _open(BuildContext context, String title) {
+    Navigator.pushNamed(
+      context,
+      productDetailsScreenRoute,
+      arguments: title,
+    );
+  }
 
   @override
   void initState() {
     _pageController = PageController(initialPage: 0);
     _timer = Timer.periodic(const Duration(seconds: 4), (Timer timer) {
-      if (_selectedIndex < offers.length - 1) {
+      if (_selectedIndex < 3) {
         _selectedIndex++;
       } else {
         _selectedIndex = 0;
@@ -77,6 +85,7 @@ class _OffersCarouselState extends State<OffersCarousel> {
 
   @override
   Widget build(BuildContext context) {
+    final offers = _offers(context);
     return AspectRatio(
       aspectRatio: 1.87,
       child: Stack(

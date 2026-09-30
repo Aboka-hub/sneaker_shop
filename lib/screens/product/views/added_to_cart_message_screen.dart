@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sneaker_shop/constants.dart';
+import 'package:sneaker_shop/l10n/l10n.dart';
 import 'package:sneaker_shop/route/screen_export.dart';
 
 class AddedToCartMessageScreen extends StatelessWidget {
@@ -36,14 +37,21 @@ class AddedToCartMessageScreen extends StatelessWidget {
               const Spacer(flex: 2),
               OutlinedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, entryPointScreenRoute);
+                  Navigator.popUntil(
+                    context,
+                    (route) =>
+                        route.settings.name == entryPointScreenRoute ||
+                        route.isFirst,
+                  );
                 },
-                child: const Text("Continue shopping"),
+                child: Text(tr(context, "Continue shopping")),
               ),
               const SizedBox(height: defaultPadding),
               ElevatedButton(
-                onPressed: () {},
-                child: const Text("Checkout"),
+                onPressed: () {
+                  Navigator.pushNamed(context, checkoutScreenRoute);
+                },
+                child: Text(tr(context, "Checkout")),
               ),
               const Spacer(),
             ],

@@ -2,78 +2,57 @@ import 'package:flutter/material.dart';
 import 'package:sneaker_shop/components/cart_button.dart';
 import 'package:sneaker_shop/components/network_image_with_loader.dart';
 import 'package:sneaker_shop/constants.dart';
+import 'package:sneaker_shop/l10n/l10n.dart';
 import 'package:sneaker_shop/models/product_model.dart';
+import 'package:sneaker_shop/models/shop_store.dart';
+import 'package:sneaker_shop/route/route_constants.dart';
 
-class CartScreen extends StatefulWidget {
+class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
 
   @override
-  State<CartScreen> createState() => _CartScreenState();
-}
-
-class _CartScreenState extends State<CartScreen> {
-  // Демо-корзина: первые три товара каталога. Реальная корзина хранится
-  // в состоянии приложения или на бэкенде.
-  final List<ProductModel> _items = demoPopularProducts.take(3).toList();
-  final List<int> _quantities = [1, 1, 2];
-
-  double get _total {
-    double sum = 0;
-    for (var i = 0; i < _items.length; i++) {
-      final item = _items[i];
-      sum += (item.priceAfetDiscount ?? item.price) * _quantities[i];
-    }
-    return sum;
-  }
-
-  void _changeQuantity(int index, int delta) {
-    setState(() {
-      final next = _quantities[index] + delta;
-      if (next >= 1) _quantities[index] = next;
-    });
-  }
-
-  void _remove(int index) {
-    setState(() {
-      _items.removeAt(index);
-      _quantities.removeAt(index);
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    if (_items.isEmpty) {
-      return const Scaffold(
-        body: Center(child: Text("Your cart is empty")),
-      );
-    }
-
-    return Scaffold(
-      bottomNavigationBar: CartButton(
-        price: _total,
-        title: "Checkout",
-        subTitle: "Total price",
-        press: () {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Checkout is not connected yet")),
+    return ListenableBuilder(
+      listenable: ShopStore.instance,
+      builder: (context, _) {
+        final store = ShopStore.instance;
+        if (store.cart.isEmpty) {
+          return Scaffold(
+            appBar: AppBar(title: Text(tr(context, "Cart"))),
+            body: Center(child: Text(tr(context, "Your cart is empty"))),
           );
-        },
-      ),
-      body: SafeArea(
-        child: ListView.separated(
-          padding: const EdgeInsets.all(defaultPadding),
-          itemCount: _items.length,
-          separatorBuilder: (context, index) =>
-              const SizedBox(height: defaultPadding),
-          itemBuilder: (context, index) => _CartItemTile(
-            product: _items[index],
-            quantity: _quantities[index],
-            onIncrement: () => _changeQuantity(index, 1),
-            onDecrement: () => _changeQuantity(index, -1),
-            onRemove: () => _remove(index),
+        }
+
+        return Scaffold(
+          appBar: AppBar(title: Text(tr(context, "Cart"))),
+          bottomNavigationBar: CartButton(
+            price: store.cartTotal,
+            title: tr(context, "Checkout"),
+            subTitle: tr(context, "Total price"),
+            press: () {
+              Navigator.pushNamed(context, checkoutScreenRoute);
+            },
           ),
-        ),
-      ),
+          body: ListView.separated(
+            padding: const EdgeInsets.all(defaultPadding),
+            itemCount: store.cart.length,
+            separatorBuilder: (context, index) =>
+                const SizedBox(height: defaultPadding),
+            itemBuilder: (context, index) {
+              final line = store.cart[index];
+              return _CartItemTile(
+                product: line.product,
+                size: line.size,
+                colorName: line.colorName,
+                quantity: line.quantity,
+                onIncrement: () => store.changeQuantity(index, 1),
+                onDecrement: () => store.changeQuantity(index, -1),
+                onRemove: () => store.removeFromCart(index),
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }
@@ -81,6 +60,8 @@ class _CartScreenState extends State<CartScreen> {
 class _CartItemTile extends StatelessWidget {
   const _CartItemTile({
     required this.product,
+    required this.size,
+    required this.colorName,
     required this.quantity,
     required this.onIncrement,
     required this.onDecrement,
@@ -88,6 +69,8 @@ class _CartItemTile extends StatelessWidget {
   });
 
   final ProductModel product;
+  final String size;
+  final String colorName;
   final int quantity;
   final VoidCallback onIncrement, onDecrement, onRemove;
 
@@ -124,6 +107,11 @@ class _CartItemTile extends StatelessWidget {
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.titleSmall,
+              ),
+              const SizedBox(height: defaultPadding / 4),
+              Text(
+                "$size · $colorName",
+                style: Theme.of(context).textTheme.bodySmall,
               ),
               const SizedBox(height: defaultPadding / 2),
               Row(

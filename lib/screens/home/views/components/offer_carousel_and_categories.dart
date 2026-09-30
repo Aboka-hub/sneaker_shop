@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../constants.dart';
+import 'package:sneaker_shop/l10n/l10n.dart';
 import 'categories.dart';
 import 'offers_carousel.dart';
 
@@ -19,7 +20,7 @@ class OffersCarouselAndCategories extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(defaultPadding),
           child: Text(
-            "Categories",
+            tr(context, "Categories"),
             style: Theme.of(context).textTheme.titleSmall,
           ),
         ),

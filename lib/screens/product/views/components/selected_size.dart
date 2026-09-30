@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../constants.dart';
+import 'package:sneaker_shop/l10n/l10n.dart';
 
 class SelectedSize extends StatelessWidget {
   const SelectedSize({
@@ -23,7 +24,7 @@ class SelectedSize extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(defaultPadding),
           child: Text(
-            "Select Size",
+            tr(context, "Size"),
             style: Theme.of(context).textTheme.titleSmall,
           ),
         ),

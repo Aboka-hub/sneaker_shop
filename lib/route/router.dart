@@ -30,8 +30,14 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         builder: (context) => const DiscoverScreen(),
       );
     case searchScreenRoute:
+      final args = settings.arguments;
+      final searchArgs = args is SearchArgs ? args : null;
+      final category = searchArgs?.category ?? (args is String ? args : null);
       return MaterialPageRoute(
-        builder: (context) => const SearchScreen(),
+        builder: (context) => SearchScreen(
+          category: category,
+          initialQuery: searchArgs?.query,
+        ),
       );
     case bookmarkScreenRoute:
       return MaterialPageRoute(
@@ -41,15 +47,46 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(
         builder: (context) => const CartScreen(),
       );
+    case checkoutScreenRoute:
+      return MaterialPageRoute(
+        builder: (context) => const CheckoutScreen(),
+      );
+    case cardsScreenRoute:
+      return MaterialPageRoute(
+        builder: (context) => const CardsScreen(),
+      );
+    case ordersScreenRoute:
+      return MaterialPageRoute(
+        builder: (context) => const OrdersScreen(),
+      );
+    case orderDetailsScreenRoute:
+      return MaterialPageRoute(
+        builder: (context) => OrderDetailsScreen(
+          orderId: settings.arguments as String? ?? "",
+        ),
+      );
+    case returnsScreenRoute:
+      return MaterialPageRoute(
+        builder: (context) => const ReturnsScreen(),
+      );
     case profileScreenRoute:
       return MaterialPageRoute(
         builder: (context) => const ProfileScreen(),
       );
+    case userInfoScreenRoute:
+      return MaterialPageRoute(
+        builder: (context) => const UserInfoScreen(),
+      );
     case productDetailsScreenRoute:
       return MaterialPageRoute(
         builder: (context) {
-          bool isProductAvailable = settings.arguments as bool? ?? true;
-          return ProductDetailsScreen(isProductAvailable: isProductAvailable);
+          final args = settings.arguments;
+          if (args is String) {
+            return ProductDetailsScreen(productTitle: args);
+          }
+          return ProductDetailsScreen(
+            isProductAvailable: args as bool? ?? true,
+          );
         },
       );
     default:

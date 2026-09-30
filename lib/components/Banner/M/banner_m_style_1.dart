@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sneaker_shop/l10n/l10n.dart';
 import 'banner_m.dart';
 
 import '../../../constants.dart';
@@ -39,8 +40,8 @@ class BannerMStyle1 extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              const Text(
-                "Shop now",
+              Text(
+                tr(context, "Shop now"),
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w600,

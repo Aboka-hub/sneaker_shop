@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sneaker_shop/components/network_image_with_loader.dart';
 
 import '../../../../constants.dart';
 
@@ -22,6 +21,12 @@ class ProfileCard extends StatelessWidget {
   final bool isPro, isShowHi, isShowArrow;
   final VoidCallback? press;
 
+  ImageProvider? get _avatar {
+    if (imageSrc.startsWith("assets/")) return AssetImage(imageSrc);
+    if (imageSrc.startsWith("http")) return NetworkImage(imageSrc);
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -29,12 +34,10 @@ class ProfileCard extends StatelessWidget {
       leading: CircleAvatar(
         radius: 28,
         backgroundColor: primaryColor.withOpacity(0.15),
+        backgroundImage: _avatar,
         child: imageSrc.isEmpty
             ? const Icon(Icons.person, color: primaryColor, size: 28)
-            : NetworkImageWithLoader(
-                imageSrc,
-                radius: 100,
-              ),
+            : null,
       ),
       title: Row(
         children: [

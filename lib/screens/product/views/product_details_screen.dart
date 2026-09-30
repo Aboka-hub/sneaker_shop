@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:sneaker_shop/components/cart_button.dart';
 import 'package:sneaker_shop/components/custom_modal_bottom_sheet.dart';
 import 'package:sneaker_shop/components/product/product_card.dart';
 import 'package:sneaker_shop/constants.dart';
+import 'package:sneaker_shop/l10n/l10n.dart';
 import 'package:sneaker_shop/models/product_model.dart';
+import 'package:sneaker_shop/models/shop_store.dart';
 import 'package:sneaker_shop/screens/product/views/product_returns_screen.dart';
 
 import 'package:sneaker_shop/route/screen_export.dart';
@@ -17,27 +18,39 @@ import '../../../components/review_card.dart';
 import 'product_buy_now_screen.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
-  const ProductDetailsScreen({super.key, this.isProductAvailable = true});
+  const ProductDetailsScreen({
+    super.key,
+    this.productTitle,
+    this.isProductAvailable = true,
+  });
 
+  final String? productTitle;
   final bool isProductAvailable;
+
+  ProductModel get product =>
+      productByTitle(productTitle ?? "") ?? demoPopularProducts.first;
 
   @override
   Widget build(BuildContext context) {
+    final related = [
+      for (final item in catalogProducts())
+        if (item.title != product.title) item,
+    ].take(8).toList();
+
     return Scaffold(
       bottomNavigationBar: isProductAvailable
           ? CartButton(
-              price: 149.99,
+              price: product.priceAfetDiscount ?? product.price,
               press: () {
                 customModalBottomSheet(
                   context,
                   height: MediaQuery.of(context).size.height * 0.92,
-                  child: const ProductBuyNowScreen(),
+                  child: ProductBuyNowScreen(product: product),
                 );
               },
             )
           :
 
-          /// Если товара нет в наличии, показываем [NotifyMeCard]
           NotifyMeCard(
               isNotify: false,
               onChanged: (value) {},
@@ -49,50 +62,59 @@ class ProductDetailsScreen extends StatelessWidget {
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               floating: true,
               actions: [
-                IconButton(
-                  onPressed: () {},
-                  icon: SvgPicture.asset("assets/icons/Bookmark.svg",
-                      color: Theme.of(context).textTheme.bodyLarge!.color),
+                ListenableBuilder(
+                  listenable: ShopStore.instance,
+                  builder: (context, _) {
+                    final saved =
+                        ShopStore.instance.isInWishlist(product);
+                    return IconButton(
+                      onPressed: () =>
+                          ShopStore.instance.toggleWishlist(product),
+                      icon: Icon(
+                        saved ? Icons.favorite : Icons.favorite_border,
+                        color: primaryColor,
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
-            const ProductImages(
-              images: [sneakerImg1, sneakerImg2, sneakerImg3, sneakerImg4],
-            ),
+            ProductImages(images: [product.image]),
             ProductInfo(
-              brand: "NIKE",
-              title: "Air Jordan 1 Retro High",
+              brand: product.brandName.toUpperCase(),
+              title: product.title,
               isAvailable: isProductAvailable,
-              description:
-                  "Легендарный силуэт 1985 года: кожаный верх, перфорация на мыске "
-                  "для вентиляции и амортизация Air в подошве. Универсальная пара "
-                  "и для города, и для площадки.",
+              description: tr(
+                context,
+                "{title} by {brand}. Pick a size and a color, then add the pair to your cart.",
+              ).replaceAll("{brand}", product.brandName).replaceAll("{title}", product.title),
               rating: 4.4,
               numOfReviews: 126,
             ),
             ProductListTile(
               svgSrc: "assets/icons/Product.svg",
-              title: "Product Details",
+              title: tr(context, "Product Details"),
               press: () => _showInfoSheet(
                 context,
-                "Product Details",
-                "Верх: натуральная кожа. Подошва: резина.\n"
-                    "Тип фиксации: шнуровка.\nСтрана производства: Вьетнам.",
+                tr(context, "Product Details"),
+                tr(context, "Leather or textile upper, rubber sole, lace-up fit."),
               ),
             ),
             ProductListTile(
               svgSrc: "assets/icons/Delivery.svg",
-              title: "Shipping Information",
+              title: tr(context, "Shipping Information"),
               press: () => _showInfoSheet(
                 context,
-                "Shipping Information",
-                "Доставка по городу — 1–2 дня, по стране — 3–7 дней.\n"
-                    "Бесплатно при заказе от \$150.",
+                tr(context, "Shipping Information"),
+                tr(
+                  context,
+                  "City delivery takes 1–2 days, nationwide 3–7 days. Free shipping from \$150.",
+                ),
               ),
             ),
             ProductListTile(
               svgSrc: "assets/icons/Return.svg",
-              title: "Returns",
+              title: tr(context, "Returns"),
               isShowBottomBorder: true,
               press: () {
                 customModalBottomSheet(
@@ -120,7 +142,7 @@ class ProductDetailsScreen extends StatelessWidget {
               padding: const EdgeInsets.all(defaultPadding),
               sliver: SliverToBoxAdapter(
                 child: Text(
-                  "You may also like",
+                  tr(context, "You may also like"),
                   style: Theme.of(context).textTheme.titleSmall!,
                 ),
               ),
@@ -130,24 +152,26 @@ class ProductDetailsScreen extends StatelessWidget {
                 height: 220,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: demoBestSellersProducts.length,
+                  itemCount: related.length,
                   itemBuilder: (context, index) => Padding(
                     padding: EdgeInsets.only(
                         left: defaultPadding,
-                        right: index == demoBestSellersProducts.length - 1
+                        right: index == related.length - 1
                             ? defaultPadding
                             : 0),
                     child: ProductCard(
-                      image: demoBestSellersProducts[index].image,
-                      title: demoBestSellersProducts[index].title,
-                      brandName: demoBestSellersProducts[index].brandName,
-                      price: demoBestSellersProducts[index].price,
-                      priceAfetDiscount:
-                          demoBestSellersProducts[index].priceAfetDiscount,
-                      dicountpercent:
-                          demoBestSellersProducts[index].dicountpercent,
+                      image: related[index].image,
+                      title: related[index].title,
+                      brandName: related[index].brandName,
+                      price: related[index].price,
+                      priceAfetDiscount: related[index].priceAfetDiscount,
+                      dicountpercent: related[index].dicountpercent,
                       press: () {
-                        Navigator.pushNamed(context, productDetailsScreenRoute);
+                        Navigator.pushNamed(
+                          context,
+                          productDetailsScreenRoute,
+                          arguments: related[index].title,
+                        );
                       },
                     ),
                   ),

@@ -4,6 +4,7 @@ import 'package:sneaker_shop/screens/auth/views/components/sign_up_form.dart';
 import 'package:sneaker_shop/route/route_constants.dart';
 
 import '../../../constants.dart';
+import 'package:sneaker_shop/l10n/l10n.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -25,13 +26,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const _AuthShoe(),
                 Text(
-                  "Let’s get started!",
+                  tr(context, "Let's get started!"),
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 const SizedBox(height: defaultPadding / 2),
-                const Text(
-                  "Please enter your valid data in order to create an account.",
+                Text(
+                  tr(
+                    context,
+                    "Please enter your valid data in order to create an account.",
+                  ),
                 ),
                 const SizedBox(height: defaultPadding),
                 SignUpForm(formKey: _formKey),
@@ -45,19 +50,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     Expanded(
                       child: Text.rich(
                         TextSpan(
-                          text: "I agree with the",
+                          text: tr(context, "I agree with the"),
                           children: [
                             TextSpan(
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {},
-                              text: " Terms of service ",
+                              text: tr(context, " Terms of service "),
                               style: const TextStyle(
                                 color: primaryColor,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            const TextSpan(
-                              text: "& privacy policy.",
+                            TextSpan(
+                              text: tr(context, "& privacy policy."),
                             ),
                           ],
                         ),
@@ -68,25 +73,59 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(height: defaultPadding * 2),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, entryPointScreenRoute);
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      entryPointScreenRoute,
+                      (route) => false,
+                    );
                   },
-                  child: const Text("Continue"),
+                  child: Text(tr(context, "Continue")),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Do you have an account?"),
+                    Text(tr(context, "Do you have an account?")),
                     TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, logInScreenRoute);
+                        if (Navigator.canPop(context)) {
+                          Navigator.pop(context);
+                        } else {
+                          Navigator.pushReplacementNamed(
+                            context,
+                            logInScreenRoute,
+                          );
+                        }
                       },
-                      child: const Text("Log in"),
+                      child: Text(tr(context, "Log in")),
                     )
                   ],
                 ),
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _AuthShoe extends StatelessWidget {
+  const _AuthShoe();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: defaultPadding),
+      child: Center(
+        child: Container(
+          height: 168,
+          width: 168,
+          decoration: BoxDecoration(
+            color: primaryColor.withOpacity(0.08),
+            shape: BoxShape.circle,
+          ),
+          padding: const EdgeInsets.all(defaultPadding * 1.25),
+          child: Image.asset(sneakerImg1, fit: BoxFit.contain),
         ),
       ),
     );

@@ -18,6 +18,7 @@ class BannerM extends StatelessWidget {
     return AspectRatio(
       aspectRatio: 1.87,
       child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
         onTap: press,
         child: Stack(
           children: [

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../constants.dart';
+import 'package:sneaker_shop/l10n/l10n.dart';
 
 class LogInForm extends StatelessWidget {
   const LogInForm({
@@ -19,13 +20,12 @@ class LogInForm extends StatelessWidget {
         children: [
           TextFormField(
             onSaved: (emal) {
-              // Email
             },
-            validator: emaildValidator.call,
+            validator: (value) => emailError(context, value),
             textInputAction: TextInputAction.next,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
-              hintText: "Email address",
+              hintText: tr(context, "Email address"),
               prefixIcon: Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: defaultPadding * 0.75),
@@ -48,10 +48,10 @@ class LogInForm extends StatelessWidget {
           TextFormField(
             onSaved: (pass) {
             },
-            validator: passwordValidator.call,
+            validator: (value) => passwordError(context, value),
             obscureText: true,
             decoration: InputDecoration(
-              hintText: "Password",
+              hintText: tr(context, "Password"),
               prefixIcon: Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: defaultPadding * 0.75),
@@ -74,4 +74,25 @@ class LogInForm extends StatelessWidget {
       ),
     );
   }
+}
+
+String? emailError(BuildContext context, String? value) {
+  final text = value?.trim() ?? "";
+  if (text.isEmpty) return tr(context, "Email is required");
+  if (!RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(text)) {
+    return tr(context, "Enter a valid email address");
+  }
+  return null;
+}
+
+String? passwordError(BuildContext context, String? value) {
+  final text = value ?? "";
+  if (text.isEmpty) return tr(context, "Password is required");
+  if (text.length < 8) {
+    return tr(context, "Password must be at least 8 characters");
+  }
+  if (!RegExp(r'[#?!@$%^&*-]').hasMatch(text)) {
+    return tr(context, "Password needs a special character");
+  }
+  return null;
 }

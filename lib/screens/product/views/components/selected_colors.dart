@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../constants.dart';
+import 'package:sneaker_shop/l10n/l10n.dart';
 import 'color_dot.dart';
 
 class SelectedColors extends StatelessWidget {
@@ -22,7 +23,7 @@ class SelectedColors extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(defaultPadding),
           child: Text(
-            "Select Color",
+            tr(context, "Color"),
             style: Theme.of(context).textTheme.titleSmall,
           ),
         ),

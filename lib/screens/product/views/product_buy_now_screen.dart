@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sneaker_shop/components/cart_button.dart';
 import 'package:sneaker_shop/components/custom_modal_bottom_sheet.dart';
 import 'package:sneaker_shop/components/network_image_with_loader.dart';
@@ -8,27 +7,55 @@ import 'package:sneaker_shop/screens/product/views/components/product_list_tile.
 import 'package:sneaker_shop/screens/product/views/location_permission_store_availability_screen.dart';
 
 import '../../../constants.dart';
+import 'package:sneaker_shop/l10n/l10n.dart';
+import '../../../models/product_model.dart';
+import '../../../models/shop_store.dart';
 import 'components/product_quantity.dart';
 import 'components/selected_colors.dart';
 import 'components/selected_size.dart';
 import 'components/unit_price.dart';
 
 class ProductBuyNowScreen extends StatefulWidget {
-  const ProductBuyNowScreen({super.key});
+  const ProductBuyNowScreen({super.key, required this.product});
+
+  final ProductModel product;
 
   @override
   _ProductBuyNowScreenState createState() => _ProductBuyNowScreenState();
 }
 
 class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
+  late final ProductModel _product = widget.product;
+  int _quantity = 1;
+  int _colorIndex = 0;
+  late int _sizeIndex;
+
+  List<String> get _sizes =>
+      _product.sizes.isEmpty ? shoeSizes : _product.sizes;
+
+  double get _unitPrice => _product.priceAfetDiscount ?? _product.price;
+
+  @override
+  void initState() {
+    super.initState();
+    final middle = _sizes.length ~/ 2;
+    _sizeIndex = middle.clamp(0, _sizes.length - 1);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: CartButton(
-        price: 269.4,
-        title: "Add to cart",
-        subTitle: "Total price",
+        price: _unitPrice * _quantity,
+        title: tr(context, "Add to cart"),
+        subTitle: tr(context, "Total"),
         press: () {
+          ShopStore.instance.addToCart(
+            _product,
+            size: _sizes[_sizeIndex],
+            colorName: shoeColors[_colorIndex].name,
+            quantity: _quantity,
+          );
           customModalBottomSheet(
             context,
             isDismissible: false,
@@ -45,14 +72,26 @@ class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const BackButton(),
-                Text(
-                  "Air Jordan 1 Retro High",
-                  style: Theme.of(context).textTheme.titleSmall,
+                Expanded(
+                  child: Text(
+                    _product.title,
+                    textAlign: TextAlign.center,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
                 ),
                 IconButton(
-                  onPressed: () {},
-                  icon: SvgPicture.asset("assets/icons/Bookmark.svg",
-                      color: Theme.of(context).textTheme.bodyLarge!.color),
+                  onPressed: () {
+                    ShopStore.instance.toggleWishlist(_product);
+                    setState(() {});
+                  },
+                  icon: Icon(
+                    ShopStore.instance.isInWishlist(_product)
+                        ? Icons.favorite
+                        : Icons.favorite_border,
+                    color: primaryColor,
+                  ),
                 ),
               ],
             ),
@@ -60,12 +99,12 @@ class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
           Expanded(
             child: CustomScrollView(
               slivers: [
-                const SliverToBoxAdapter(
+                SliverToBoxAdapter(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: defaultPadding),
+                    padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
                     child: AspectRatio(
                       aspectRatio: 1.05,
-                      child: NetworkImageWithLoader(sneakerImg1),
+                      child: NetworkImageWithLoader(_product.image),
                     ),
                   ),
                 ),
@@ -75,16 +114,18 @@ class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Expanded(
+                        Expanded(
                           child: UnitPrice(
-                            price: 145,
-                            priceAfterDiscount: 134.7,
+                            price: _product.price,
+                            priceAfterDiscount: _product.priceAfetDiscount,
                           ),
                         ),
                         ProductQuantity(
-                          numOfItem: 2,
-                          onIncrement: () {},
-                          onDecrement: () {},
+                          numOfItem: _quantity,
+                          onIncrement: () => setState(() => _quantity++),
+                          onDecrement: () {
+                            if (_quantity > 1) setState(() => _quantity--);
+                          },
                         ),
                       ],
                     ),
@@ -93,34 +134,31 @@ class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
                 const SliverToBoxAdapter(child: Divider()),
                 SliverToBoxAdapter(
                   child: SelectedColors(
-                    colors: const [
-                      Color(0xFFEA6262),
-                      Color(0xFFB1CC63),
-                      Color(0xFFFFBF5F),
-                      Color(0xFF9FE1DD),
-                      Color(0xFFC482DB),
-                    ],
-                    selectedColorIndex: 2,
-                    press: (value) {},
+                    colors: [for (final color in shoeColors) color.color],
+                    selectedColorIndex: _colorIndex,
+                    press: (value) => setState(() => _colorIndex = value),
                   ),
                 ),
                 SliverToBoxAdapter(
                   child: SelectedSize(
-                    sizes: const ["39", "40", "41", "42", "43", "44"],
-                    selectedIndex: 1,
-                    press: (value) {},
+                    sizes: _sizes,
+                    selectedIndex: _sizeIndex,
+                    press: (value) => setState(() => _sizeIndex = value),
                   ),
                 ),
                 SliverPadding(
                   padding: const EdgeInsets.symmetric(vertical: defaultPadding),
                   sliver: ProductListTile(
-                    title: "Size guide",
+                    title: tr(context, "Size guide"),
                     svgSrc: "assets/icons/Sizeguid.svg",
                     isShowBottomBorder: true,
                     press: () {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("EU 40 ≈ US 7 ≈ 25.5 cm"),
+                        SnackBar(
+                          content: Text(
+                            tr(context, "EU {size}")
+                                .replaceAll("{size}", _sizes[_sizeIndex]),
+                          ),
                         ),
                       );
                     },

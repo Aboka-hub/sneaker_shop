@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:sneaker_shop/components/Banner/S/banner_s_style_1.dart';
 import 'package:sneaker_shop/components/Banner/S/banner_s_style_5.dart';
 import 'package:sneaker_shop/constants.dart';
+import 'package:sneaker_shop/l10n/l10n.dart';
 import 'package:sneaker_shop/route/screen_export.dart';
 
 import 'components/best_sellers.dart';
 import 'components/flash_sale.dart';
 import 'components/most_popular.dart';
+import 'components/new_this_week.dart';
 import 'components/offer_carousel_and_categories.dart';
 import 'components/popular_products.dart';
 
@@ -20,6 +22,7 @@ class HomeScreen extends StatelessWidget {
         child: CustomScrollView(
           slivers: [
             const SliverToBoxAdapter(child: OffersCarouselAndCategories()),
+            const SliverToBoxAdapter(child: NewThisWeek()),
             const SliverToBoxAdapter(child: PopularProducts()),
             const SliverPadding(
               padding: EdgeInsets.symmetric(vertical: defaultPadding * 1.5),
@@ -29,11 +32,15 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 children: [
                   BannerSStyle1(
-                    title: "New \nsneakers",
-                    subtitle: "SPECIAL OFFER",
+                    title: tr(context, "New \nsneakers"),
+                    subtitle: tr(context, "SPECIAL OFFER"),
                     discountParcent: 50,
                     press: () {
-                      Navigator.pushNamed(context, discoverScreenRoute);
+                      Navigator.pushNamed(
+                        context,
+                        productDetailsScreenRoute,
+                        arguments: "Sports Sneakers Off White Red",
+                      );
                     },
                   ),
                   const SizedBox(height: defaultPadding / 4),
@@ -48,11 +55,15 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(height: defaultPadding * 1.5),
                   const SizedBox(height: defaultPadding / 4),
                   BannerSStyle5(
-                    title: "Running \nweek",
-                    subtitle: "50% Off",
-                    bottomText: "Sneakers".toUpperCase(),
+                    title: tr(context, "Running \nweek"),
+                    subtitle: tr(context, "50% Off"),
+                    bottomText: tr(context, "SNEAKERS"),
                     press: () {
-                      Navigator.pushNamed(context, discoverScreenRoute);
+                      Navigator.pushNamed(
+                        context,
+                        searchScreenRoute,
+                        arguments: "Running",
+                      );
                     },
                   ),
                   const SizedBox(height: defaultPadding / 4),

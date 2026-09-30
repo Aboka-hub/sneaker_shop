@@ -3,6 +3,7 @@ import 'package:sneaker_shop/components/product/secondary_product_card.dart';
 import 'package:sneaker_shop/models/product_model.dart';
 
 import '../../../../constants.dart';
+import 'package:sneaker_shop/l10n/l10n.dart';
 import '../../../../route/route_constants.dart';
 
 class MostPopular extends StatelessWidget {
@@ -19,17 +20,14 @@ class MostPopular extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(defaultPadding),
           child: Text(
-            "Most popular",
+            tr(context, "Most popular"),
             style: Theme.of(context).textTheme.titleSmall,
           ),
         ),
-        // While loading use 👇
-        // SeconderyProductsSkelton(),
         SizedBox(
           height: 114,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            // Find demoPopularProducts on models/ProductModel.dart
             itemCount: demoPopularProducts.length,
             itemBuilder: (context, index) => Padding(
               padding: EdgeInsets.only(
@@ -47,7 +45,7 @@ class MostPopular extends StatelessWidget {
                 dicountpercent: demoPopularProducts[index].dicountpercent,
                 press: () {
                   Navigator.pushNamed(context, productDetailsScreenRoute,
-                      arguments: index.isEven);
+                      arguments: demoPopularProducts[index].title);
                 },
               ),
             ),

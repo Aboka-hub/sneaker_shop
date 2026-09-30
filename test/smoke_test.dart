@@ -4,8 +4,6 @@ import 'package:sneaker_shop/entry_point.dart';
 import 'package:sneaker_shop/route/screen_export.dart';
 
 void main() {
-  // В тестах используется шрифт-заглушка, где каждый символ шире реального,
-  // поэтому плотные строки "переполняются" только здесь, а не в приложении.
   void ignoreOverflowErrors() {
     final defaultOnError = FlutterError.onError;
     FlutterError.onError = (details) {
@@ -24,7 +22,7 @@ void main() {
 
   testWidgets("onboarding renders", (tester) async {
     await show(tester, const OnBordingScreen());
-    expect(find.textContaining("sneakers"), findsWidgets);
+    expect(find.textContaining("кроссовки"), findsWidgets);
   });
 
   testWidgets("login renders", (tester) async {
@@ -43,7 +41,7 @@ void main() {
     await show(tester, const EntryPoint());
     expect(find.text("SNEAKER HUB"), findsOneWidget);
 
-    for (final label in ["Discover", "Bookmark", "Cart", "Profile"]) {
+    for (final label in ["Каталог", "Избранное", "Корзина", "Профиль"]) {
       await tester.tap(find.text(label));
       await tester.pump(const Duration(milliseconds: 400));
     }
@@ -57,7 +55,7 @@ void main() {
 
     await tester.enterText(find.byType(TextField), "zzz");
     await tester.pump();
-    expect(find.text("Nothing found"), findsOneWidget);
+    expect(find.text("Ничего не найдено"), findsOneWidget);
   });
 
   testWidgets("cart totals update on quantity change", (tester) async {

@@ -3,6 +3,7 @@ import 'package:sneaker_shop/components/product/product_card.dart';
 import 'package:sneaker_shop/models/product_model.dart';
 
 import '../../../../constants.dart';
+import 'package:sneaker_shop/l10n/l10n.dart';
 import '../../../../route/route_constants.dart';
 
 class BestSellers extends StatelessWidget {
@@ -19,7 +20,7 @@ class BestSellers extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(defaultPadding),
           child: Text(
-            "Best sellers",
+            tr(context, "Best sellers"),
             style: Theme.of(context).textTheme.titleSmall,
           ),
         ),
@@ -45,7 +46,7 @@ class BestSellers extends StatelessWidget {
                 dicountpercent: demoBestSellersProducts[index].dicountpercent,
                 press: () {
                   Navigator.pushNamed(context, productDetailsScreenRoute,
-                      arguments: index.isEven);
+                      arguments: demoBestSellersProducts[index].title);
                 },
               ),
             ),

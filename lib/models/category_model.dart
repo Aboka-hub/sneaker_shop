@@ -13,9 +13,9 @@ class CategoryModel {
 
 final List<CategoryModel> demoCategoriesWithImage = [
   CategoryModel(title: "Men’s", image: "assets/images/products/jordan_4.webp"),
-  CategoryModel(title: "Women’s", image: "assets/images/products/golden_1.webp"),
+  CategoryModel(title: "Women’s", image: "assets/images/products/puma_1.webp"),
   CategoryModel(title: "Running", image: "assets/images/products/puma_2.webp"),
-  CategoryModel(title: "Kid’s", image: "assets/images/products/pampi_1.webp"),
+  CategoryModel(title: "Kid’s", image: "assets/images/products/jordan_2.webp"),
 ];
 
 final List<CategoryModel> demoCategories = [
@@ -49,12 +49,21 @@ final List<CategoryModel> demoCategories = [
     ],
   ),
   CategoryModel(
-    title: "Care & laces",
-    svgSrc: "assets/icons/Accessories.svg",
+    title: "On Sale",
+    svgSrc: "assets/icons/Sale.svg",
     subCategories: [
-      CategoryModel(title: "Cleaning kits"),
-      CategoryModel(title: "Laces"),
-      CategoryModel(title: "Socks"),
+      CategoryModel(title: "Discounted pairs"),
+      CategoryModel(title: "Under \$100"),
+    ],
+  ),
+  CategoryModel(
+    title: "Brands",
+    svgSrc: "assets/icons/Category.svg",
+    subCategories: [
+      CategoryModel(title: "Nike"),
+      CategoryModel(title: "Puma"),
+      CategoryModel(title: "New Balance"),
+      CategoryModel(title: "Off White"),
     ],
   ),
 ];

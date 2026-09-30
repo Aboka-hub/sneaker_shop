@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sneaker_shop/route/screen_export.dart';
 
 import '../../../../constants.dart';
+import 'package:sneaker_shop/l10n/l10n.dart';
 
 class ExpansionCategory extends StatelessWidget {
   const ExpansionCategory({
@@ -30,7 +31,7 @@ class ExpansionCategory extends StatelessWidget {
         ),
       ),
       title: Text(
-        title,
+        tr(context, title),
         style: const TextStyle(fontSize: 14),
       ),
       textColor: Theme.of(context).textTheme.bodyLarge!.color,
@@ -41,10 +42,14 @@ class ExpansionCategory extends StatelessWidget {
           children: [
             ListTile(
               onTap: () {
-                Navigator.pushNamed(context, searchScreenRoute);
+                Navigator.pushNamed(
+                  context,
+                  searchScreenRoute,
+                  arguments: subCategory[index].title,
+                );
               },
               title: Text(
-                subCategory[index].title,
+                tr(context, subCategory[index].title),
                 style: const TextStyle(fontSize: 14),
               ),
             ),
