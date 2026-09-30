@@ -388,8 +388,16 @@ class ShopStore extends ChangeNotifier {
     required String email,
     required String phone,
   }) {
+    final normalized = _normalizeEmail(email);
+    if (currentUserEmail != null && normalized != currentUserEmail) {
+      final hash = _accounts.remove(currentUserEmail);
+      if (hash != null) {
+        _accounts[normalized] = hash;
+      }
+      currentUserEmail = normalized;
+    }
     userName = name;
-    userEmail = email;
+    userEmail = normalized;
     userPhone = phone;
     _changed();
   }

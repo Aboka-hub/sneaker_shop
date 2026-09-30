@@ -14,9 +14,9 @@ class CheckoutScreen extends StatefulWidget {
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _name = TextEditingController(text: "Alex Runner");
-  final _phone = TextEditingController(text: "+7 700 000 00 00");
-  final _address = TextEditingController(text: "Abay 10, Almaty");
+  final _name = TextEditingController(text: ShopStore.instance.userName);
+  final _phone = TextEditingController(text: ShopStore.instance.userPhone);
+  final _address = TextEditingController();
   final _promo = TextEditingController();
   int _cardIndex = 0;
   String? _appliedCode;

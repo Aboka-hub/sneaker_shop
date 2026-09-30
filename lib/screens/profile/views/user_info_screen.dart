@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sneaker_shop/constants.dart';
 import 'package:sneaker_shop/l10n/l10n.dart';
 import 'package:sneaker_shop/models/shop_store.dart';
+import 'package:sneaker_shop/screens/auth/views/components/login_form.dart';
 
 class UserInfoScreen extends StatefulWidget {
   const UserInfoScreen({super.key});
@@ -169,8 +170,7 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                 labelText: tr(context, "Email"),
                 prefixIcon: const Icon(Icons.mail_outline),
               ),
-              validator: (value) =>
-                  value == null || value.isEmpty ? tr(context, "Required") : null,
+              validator: (value) => emailError(context, value),
             ),
             const SizedBox(height: defaultPadding),
             TextFormField(

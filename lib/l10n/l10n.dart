@@ -114,6 +114,7 @@ const _ru = {
   "Add a payment card first": "Сначала добавьте карту",
   "Order placed": "Заказ оформлен",
   "Required": "Заполните поле",
+  "Enter a valid card": "Введите корректный номер карты",
   "Payment cards": "Карты оплаты",
   "No saved cards": "Сохранённых карт нет",
   "Add a card": "Новая карта",

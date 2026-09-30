@@ -76,7 +76,7 @@ class _CardsScreenState extends State<CardsScreen> {
                       decoration:
                           InputDecoration(labelText: tr(context, "Name on card")),
                       validator: (value) =>
-                          value == null || value.isEmpty ? "Required" : null,
+                          value == null || value.isEmpty ? tr(context, "Required") : null,
                     ),
                     const SizedBox(height: defaultPadding),
                     TextFormField(
@@ -87,7 +87,9 @@ class _CardsScreenState extends State<CardsScreen> {
                       validator: (value) {
                         final digits =
                             (value ?? "").replaceAll(RegExp(r"\D"), "");
-                        if (digits.length < 12) return "Enter a valid card";
+                        if (digits.length < 12) {
+                          return tr(context, "Enter a valid card");
+                        }
                         return null;
                       },
                     ),
@@ -97,7 +99,7 @@ class _CardsScreenState extends State<CardsScreen> {
                       decoration:
                           InputDecoration(labelText: tr(context, "Expiry MM/YY")),
                       validator: (value) =>
-                          value == null || value.isEmpty ? "Required" : null,
+                          value == null || value.isEmpty ? tr(context, "Required") : null,
                     ),
                     const SizedBox(height: defaultPadding * 1.5),
                     ElevatedButton(
