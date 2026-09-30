@@ -49,11 +49,15 @@ class ProductDetailsScreen extends StatelessWidget {
                 );
               },
             )
-          :
-
-          NotifyMeCard(
-              isNotify: false,
-              onChanged: (value) {},
+          : ListenableBuilder(
+              listenable: ShopStore.instance,
+              builder: (context, _) {
+                return NotifyMeCard(
+                  isNotify: ShopStore.instance.isNotifyRequested(product),
+                  onChanged: (value) =>
+                      ShopStore.instance.toggleNotify(product),
+                );
+              },
             ),
       body: SafeArea(
         child: CustomScrollView(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../constants.dart';
+import 'package:sneaker_shop/l10n/l10n.dart';
 
 class NotifyMeCard extends StatelessWidget {
   const NotifyMeCard({
@@ -59,7 +60,7 @@ class NotifyMeCard extends StatelessWidget {
                 const SizedBox(width: defaultPadding),
                 Expanded(
                   child: Text(
-                    "Notify when product back to stock.",
+                    tr(context, "Notify when product back to stock."),
                     style: TextStyle(
                         color: isNotify
                             ? Colors.white

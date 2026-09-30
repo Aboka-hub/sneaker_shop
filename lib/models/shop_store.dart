@@ -112,6 +112,7 @@ class ShopStore extends ChangeNotifier {
   final List<PaymentCard> cards = [];
   final List<ShopOrder> orders = [];
   final List<String> wishlist = [];
+  final List<String> notifyList = [];
   final Map<String, String> _accounts = {};
   int _orderSeq = 1002;
   String userName = "Alex Runner";
@@ -164,6 +165,7 @@ class ShopStore extends ChangeNotifier {
     wishlist
       ..clear()
       ..add(demoPopularProducts[0].id);
+    notifyList.clear();
     _accounts.clear();
     currentUserEmail = null;
     _orderSeq = 1002;
@@ -211,6 +213,12 @@ class ShopStore extends ChangeNotifier {
         ..clear()
         ..addAll([
           for (final id in (data["wishlist"] as List?) ?? const [])
+            if (productById(id as String) != null) id,
+        ]);
+      notifyList
+        ..clear()
+        ..addAll([
+          for (final id in (data["notifyList"] as List?) ?? const [])
             if (productById(id as String) != null) id,
         ]);
       notifyListeners();
@@ -288,6 +296,7 @@ class ShopStore extends ChangeNotifier {
         "currentUserEmail": currentUserEmail,
         "accounts": _accounts,
         "wishlist": wishlist,
+        "notifyList": notifyList,
         "cart": [
           for (final line in cart)
             {
@@ -402,6 +411,18 @@ class ShopStore extends ChangeNotifier {
       wishlist.remove(product.id);
     } else {
       wishlist.add(product.id);
+    }
+    _changed();
+  }
+
+  bool isNotifyRequested(ProductModel product) =>
+      notifyList.contains(product.id);
+
+  void toggleNotify(ProductModel product) {
+    if (isNotifyRequested(product)) {
+      notifyList.remove(product.id);
+    } else {
+      notifyList.add(product.id);
     }
     _changed();
   }

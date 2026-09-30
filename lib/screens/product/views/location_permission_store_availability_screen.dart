@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:sneaker_shop/theme/input_decoration_theme.dart';
 
 import '../../../constants.dart';
+import 'package:sneaker_shop/l10n/l10n.dart';
 
 class LocationPermissonStoreAvailabilityScreen extends StatelessWidget {
   const LocationPermissonStoreAvailabilityScreen({super.key});
@@ -85,7 +86,18 @@ class LocationPermissonStoreAvailabilityScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: defaultPadding * 1.5),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              tr(
+                                context,
+                                "Store pickup search is not connected yet",
+                              ),
+                            ),
+                          ),
+                        );
+                      },
                       child: const Text("Settings"),
                     )
                   ],

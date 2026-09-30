@@ -149,6 +149,7 @@ const _ru = {
   "Add to cart": "В корзину",
   "Size": "Размер",
   "Color": "Цвет",
+  "Notify when product back to stock.": "Сообщить, когда товар появится.",
   "Product Details": "О товаре",
   "Shipping Information": "Доставка",
   "You may also like": "Похожие кроссовки",
@@ -168,6 +169,8 @@ const _ru = {
   "& privacy policy.": "и политикой конфиденциальности.",
   "Password recovery is not connected yet":
       "Восстановление пароля пока не подключено",
+  "Store pickup search is not connected yet":
+      "Поиск магазинов пока не подключен",
   "Email is required": "Укажи почту",
   "Enter a valid email address": "Введи корректную почту",
   "Password is required": "Укажи пароль",
