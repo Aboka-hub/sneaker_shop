@@ -120,8 +120,14 @@ class ShopStore extends ChangeNotifier {
   String userPhone = "+7 700 000 00 00";
   String avatarAsset = profileAvatar;
   String? currentUserEmail;
+  ThemeMode themeMode = ThemeMode.system;
 
   bool get isLoggedIn => currentUserEmail != null;
+
+  void setThemeMode(ThemeMode mode) {
+    themeMode = mode;
+    _changed();
+  }
 
   void _seed() {
     cart
@@ -193,6 +199,10 @@ class ShopStore extends ChangeNotifier {
       }
       _orderSeq = data["orderSeq"] as int? ?? _orderSeq;
       currentUserEmail = data["currentUserEmail"] as String?;
+      themeMode = ThemeMode.values.firstWhere(
+        (mode) => mode.name == data["themeMode"],
+        orElse: () => ThemeMode.system,
+      );
       _accounts
         ..clear()
         ..addAll({
@@ -294,6 +304,7 @@ class ShopStore extends ChangeNotifier {
         "avatarAsset": avatarAsset,
         "orderSeq": _orderSeq,
         "currentUserEmail": currentUserEmail,
+        "themeMode": themeMode.name,
         "accounts": _accounts,
         "wishlist": wishlist,
         "notifyList": notifyList,

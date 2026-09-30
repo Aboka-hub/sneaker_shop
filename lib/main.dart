@@ -18,13 +18,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
-      listenable: L10n.instance,
+      listenable: Listenable.merge([L10n.instance, ShopStore.instance]),
       builder: (context, _) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Sneaker Hub',
           theme: AppTheme.lightTheme(context),
-          themeMode: ThemeMode.light,
+          darkTheme: AppTheme.darkTheme(context),
+          themeMode: ShopStore.instance.themeMode,
           builder: (context, child) => LocaleScope(
             notifier: L10n.instance,
             child: child ?? const SizedBox.shrink(),

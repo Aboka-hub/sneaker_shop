@@ -40,6 +40,40 @@ class AppTheme {
       ),
     );
   }
+
+  static ThemeData darkTheme(BuildContext context) {
+    return ThemeData(
+      brightness: Brightness.dark,
+      fontFamily: "Plus Jakarta",
+      primarySwatch: primaryMaterialColor,
+      primaryColor: primaryColor,
+      scaffoldBackgroundColor: const Color(0xFF101015),
+      iconTheme: const IconThemeData(color: Colors.white),
+      textTheme: const TextTheme(
+        bodyMedium: TextStyle(color: whileColor40),
+      ),
+      elevatedButtonTheme: elevatedButtonThemeData,
+      textButtonTheme: textButtonThemeData,
+      outlinedButtonTheme: outlinedButtonTheme(borderColor: whileColor20),
+      inputDecorationTheme: darkInputDecorationTheme,
+      checkboxTheme: checkboxThemeData.copyWith(
+        side: const BorderSide(color: whileColor40),
+      ),
+      appBarTheme: appBarDarkTheme,
+      scrollbarTheme: scrollbarThemeData,
+      dataTableTheme: dataTableDarkThemeData,
+      pageTransitionsTheme: const PageTransitionsTheme(
+        builders: {
+          TargetPlatform.android: FadeUpPageTransitionsBuilder(),
+          TargetPlatform.iOS: FadeUpPageTransitionsBuilder(),
+          TargetPlatform.macOS: FadeUpPageTransitionsBuilder(),
+          TargetPlatform.windows: FadeUpPageTransitionsBuilder(),
+          TargetPlatform.linux: FadeUpPageTransitionsBuilder(),
+          TargetPlatform.fuchsia: FadeUpPageTransitionsBuilder(),
+        },
+      ),
+    );
+  }
 }
 
 class FadeUpPageTransitionsBuilder extends PageTransitionsBuilder {

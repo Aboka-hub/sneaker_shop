@@ -84,6 +84,35 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           const SizedBox(height: defaultPadding * 2),
           Text(
+            tr(context, "Theme"),
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+          const SizedBox(height: defaultPadding),
+          ListenableBuilder(
+            listenable: ShopStore.instance,
+            builder: (context, _) {
+              final mode = ShopStore.instance.themeMode;
+              Widget chip(ThemeMode value, String label) => Expanded(
+                    child: ChoiceChip(
+                      label: Text(tr(context, label)),
+                      selected: mode == value,
+                      onSelected: (_) =>
+                          ShopStore.instance.setThemeMode(value),
+                    ),
+                  );
+              return Row(
+                children: [
+                  chip(ThemeMode.light, "Light"),
+                  const SizedBox(width: defaultPadding / 2),
+                  chip(ThemeMode.dark, "Dark"),
+                  const SizedBox(width: defaultPadding / 2),
+                  chip(ThemeMode.system, "System"),
+                ],
+              );
+            },
+          ),
+          const SizedBox(height: defaultPadding * 2),
+          Text(
             tr(context, "Account"),
             style: Theme.of(context).textTheme.titleSmall,
           ),
