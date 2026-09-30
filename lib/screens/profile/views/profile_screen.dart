@@ -96,6 +96,13 @@ class ProfileScreen extends StatelessWidget {
             press: () {
               Navigator.pushNamed(context, searchScreenRoute);
             },
+          ),
+          ProfileMenuListTile(
+            text: tr(context, "Settings"),
+            svgSrc: "assets/icons/Setting.svg",
+            press: () {
+              Navigator.pushNamed(context, settingsScreenRoute);
+            },
             isShowDivider: false,
           ),
           const SizedBox(height: defaultPadding),

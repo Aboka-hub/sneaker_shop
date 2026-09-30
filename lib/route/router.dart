@@ -77,6 +77,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(
         builder: (context) => const UserInfoScreen(),
       );
+    case settingsScreenRoute:
+      return MaterialPageRoute(
+        builder: (context) => const SettingsScreen(),
+      );
     case productDetailsScreenRoute:
       return MaterialPageRoute(
         builder: (context) {

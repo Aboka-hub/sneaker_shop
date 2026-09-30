@@ -383,6 +383,18 @@ class ShopStore extends ChangeNotifier {
     _changed();
   }
 
+  bool changePassword(String oldPassword, String newPassword) {
+    final email = currentUserEmail;
+    if (email == null) return false;
+    final storedHash = _accounts[email];
+    if (storedHash == null || storedHash != _hashPassword(oldPassword)) {
+      return false;
+    }
+    _accounts[email] = _hashPassword(newPassword);
+    _changed();
+    return true;
+  }
+
   void updateProfile({
     required String name,
     required String email,
