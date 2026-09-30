@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sneaker_shop/constants.dart';
+import 'package:sneaker_shop/l10n/l10n.dart';
 import 'package:sneaker_shop/models/category_model.dart';
 import 'package:sneaker_shop/screens/search/views/components/search_form.dart';
 
@@ -23,14 +24,10 @@ class DiscoverScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(
                   horizontal: defaultPadding, vertical: defaultPadding / 2),
               child: Text(
-                "Sneaker categories",
+                tr(context, "Sneaker categories"),
                 style: Theme.of(context).textTheme.titleSmall,
               ),
             ),
-            // While loading use 👇
-            // const Expanded(
-            //   child: DiscoverCategoriesSkelton(),
-            // ),
             Expanded(
               child: ListView.builder(
                 itemCount: demoCategories.length,

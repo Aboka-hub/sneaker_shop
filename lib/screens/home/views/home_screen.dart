@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sneaker_shop/components/Banner/S/banner_s_style_1.dart';
 import 'package:sneaker_shop/components/Banner/S/banner_s_style_5.dart';
 import 'package:sneaker_shop/constants.dart';
+import 'package:sneaker_shop/l10n/l10n.dart';
 import 'package:sneaker_shop/route/screen_export.dart';
 
 import 'components/best_sellers.dart';
@@ -28,18 +29,15 @@ class HomeScreen extends StatelessWidget {
             SliverToBoxAdapter(
               child: Column(
                 children: [
-                  // While loading use 👇
-                  // const BannerMSkelton(),‚
                   BannerSStyle1(
-                    title: "New \nsneakers",
-                    subtitle: "SPECIAL OFFER",
+                    title: tr(context, "New \nsneakers"),
+                    subtitle: tr(context, "SPECIAL OFFER"),
                     discountParcent: 50,
                     press: () {
                       Navigator.pushNamed(context, discoverScreenRoute);
                     },
                   ),
                   const SizedBox(height: defaultPadding / 4),
-                  // We have 4 banner styles, all in the pro version
                 ],
               ),
             ),
@@ -51,12 +49,10 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(height: defaultPadding * 1.5),
 
                   const SizedBox(height: defaultPadding / 4),
-                  // While loading use 👇
-                  // const BannerSSkelton(),
                   BannerSStyle5(
-                    title: "Running \nweek",
-                    subtitle: "50% Off",
-                    bottomText: "Sneakers".toUpperCase(),
+                    title: tr(context, "Running \nweek"),
+                    subtitle: tr(context, "50% Off"),
+                    bottomText: tr(context, "SNEAKERS"),
                     press: () {
                       Navigator.pushNamed(context, discoverScreenRoute);
                     },

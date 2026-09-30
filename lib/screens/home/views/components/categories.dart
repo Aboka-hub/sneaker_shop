@@ -3,8 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sneaker_shop/route/screen_export.dart';
 
 import '../../../../constants.dart';
+import 'package:sneaker_shop/l10n/l10n.dart';
 
-// For preview
 class CategoryModel {
   final String name;
   final String? svgSrc, route;
@@ -27,7 +27,6 @@ List<CategoryModel> demoCategories = [
   CategoryModel(
       name: "Kids", svgSrc: "assets/icons/Child.svg", route: discoverScreenRoute),
 ];
-// End For Preview
 
 class Categories extends StatelessWidget {
   const Categories({
@@ -108,7 +107,7 @@ class CategoryBtn extends StatelessWidget {
               ),
             if (svgSrc != null) const SizedBox(width: defaultPadding / 2),
             Text(
-              category,
+              tr(context, category),
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w500,

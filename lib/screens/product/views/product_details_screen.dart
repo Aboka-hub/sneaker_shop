@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:sneaker_shop/components/cart_button.dart';
 import 'package:sneaker_shop/components/custom_modal_bottom_sheet.dart';
 import 'package:sneaker_shop/components/product/product_card.dart';
 import 'package:sneaker_shop/constants.dart';
+import 'package:sneaker_shop/l10n/l10n.dart';
 import 'package:sneaker_shop/models/product_model.dart';
+import 'package:sneaker_shop/models/shop_store.dart';
 import 'package:sneaker_shop/screens/product/views/product_returns_screen.dart';
 
 import 'package:sneaker_shop/route/screen_export.dart';
@@ -26,7 +27,8 @@ class ProductDetailsScreen extends StatelessWidget {
     return Scaffold(
       bottomNavigationBar: isProductAvailable
           ? CartButton(
-              price: 149.99,
+              price: demoPopularProducts.first.priceAfetDiscount ??
+                  demoPopularProducts.first.price,
               press: () {
                 customModalBottomSheet(
                   context,
@@ -37,7 +39,6 @@ class ProductDetailsScreen extends StatelessWidget {
             )
           :
 
-          /// Если товара нет в наличии, показываем [NotifyMeCard]
           NotifyMeCard(
               isNotify: false,
               onChanged: (value) {},
@@ -49,10 +50,20 @@ class ProductDetailsScreen extends StatelessWidget {
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               floating: true,
               actions: [
-                IconButton(
-                  onPressed: () {},
-                  icon: SvgPicture.asset("assets/icons/Bookmark.svg",
-                      color: Theme.of(context).textTheme.bodyLarge!.color),
+                ListenableBuilder(
+                  listenable: ShopStore.instance,
+                  builder: (context, _) {
+                    final saved = ShopStore.instance
+                        .isInWishlist(demoPopularProducts.first);
+                    return IconButton(
+                      onPressed: () => ShopStore.instance
+                          .toggleWishlist(demoPopularProducts.first),
+                      icon: Icon(
+                        saved ? Icons.favorite : Icons.favorite_border,
+                        color: primaryColor,
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
@@ -72,27 +83,27 @@ class ProductDetailsScreen extends StatelessWidget {
             ),
             ProductListTile(
               svgSrc: "assets/icons/Product.svg",
-              title: "Product Details",
+              title: tr(context, "Product Details"),
               press: () => _showInfoSheet(
                 context,
-                "Product Details",
+                tr(context, "Product Details"),
                 "Верх: натуральная кожа. Подошва: резина.\n"
                     "Тип фиксации: шнуровка.\nСтрана производства: Вьетнам.",
               ),
             ),
             ProductListTile(
               svgSrc: "assets/icons/Delivery.svg",
-              title: "Shipping Information",
+              title: tr(context, "Shipping Information"),
               press: () => _showInfoSheet(
                 context,
-                "Shipping Information",
+                tr(context, "Shipping Information"),
                 "Доставка по городу — 1–2 дня, по стране — 3–7 дней.\n"
                     "Бесплатно при заказе от \$150.",
               ),
             ),
             ProductListTile(
               svgSrc: "assets/icons/Return.svg",
-              title: "Returns",
+              title: tr(context, "Returns"),
               isShowBottomBorder: true,
               press: () {
                 customModalBottomSheet(
@@ -120,7 +131,7 @@ class ProductDetailsScreen extends StatelessWidget {
               padding: const EdgeInsets.all(defaultPadding),
               sliver: SliverToBoxAdapter(
                 child: Text(
-                  "You may also like",
+                  tr(context, "You may also like"),
                   style: Theme.of(context).textTheme.titleSmall!,
                 ),
               ),

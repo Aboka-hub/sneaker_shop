@@ -19,7 +19,6 @@ class NetworkImageWithLoader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Демо-товары лежат в assets, реальные придут по http с бэкенда
     if (!src.startsWith("http")) {
       return ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(radius)),

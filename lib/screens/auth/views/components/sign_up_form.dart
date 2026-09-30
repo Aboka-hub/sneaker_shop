@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../constants.dart';
+import 'package:sneaker_shop/l10n/l10n.dart';
 
 class SignUpForm extends StatelessWidget {
   const SignUpForm({
@@ -19,13 +20,12 @@ class SignUpForm extends StatelessWidget {
         children: [
           TextFormField(
             onSaved: (emal) {
-              // Email
             },
             validator: emaildValidator.call,
             textInputAction: TextInputAction.next,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
-              hintText: "Email address",
+              hintText: tr(context, "Email address"),
               prefixIcon: Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: defaultPadding * 0.75),
@@ -48,12 +48,11 @@ class SignUpForm extends StatelessWidget {
           const SizedBox(height: defaultPadding),
           TextFormField(
             onSaved: (pass) {
-              // Password
             },
             validator: passwordValidator.call,
             obscureText: true,
             decoration: InputDecoration(
-              hintText: "Password",
+              hintText: tr(context, "Password"),
               prefixIcon: Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: defaultPadding * 0.75),

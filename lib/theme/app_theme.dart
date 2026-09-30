@@ -31,5 +31,4 @@ class AppTheme {
     );
   }
 
-  // Dark theme is inclided in the Full template
 }

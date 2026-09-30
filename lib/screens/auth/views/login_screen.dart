@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sneaker_shop/constants.dart';
+import 'package:sneaker_shop/l10n/l10n.dart';
 import 'package:sneaker_shop/route/route_constants.dart';
 
 import 'components/login_form.dart';
@@ -38,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 LogInForm(formKey: _formKey),
                 Align(
                   child: TextButton(
-                    child: const Text("Forgot password"),
+                    child: Text(tr(context, "Forgot password")),
                     onPressed: () {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
@@ -65,17 +66,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       );
                     }
                   },
-                  child: const Text("Log in"),
+                  child: Text(tr(context, "Log in")),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Don't have an account?"),
+                    Text(tr(context, "Don't have an account?")),
                     TextButton(
                       onPressed: () {
                         Navigator.pushNamed(context, signUpScreenRoute);
                       },
-                      child: const Text("Sign up"),
+                      child: Text(tr(context, "Sign up")),
                     )
                   ],
                 ),

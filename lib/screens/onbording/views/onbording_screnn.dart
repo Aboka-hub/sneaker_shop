@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sneaker_shop/components/dot_indicators.dart';
 import 'package:sneaker_shop/constants.dart';
+import 'package:sneaker_shop/l10n/l10n.dart';
 import 'package:sneaker_shop/route/route_constants.dart';
 
 import 'components/onbording_content.dart';
@@ -75,15 +76,22 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
             children: [
               Align(
                 alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, logInScreenRoute);
-                  },
-                  child: Text(
-                    "Skip",
-                    style: TextStyle(
-                        color: Theme.of(context).textTheme.bodyLarge!.color),
-                  ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const LanguageButton(),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, logInScreenRoute);
+                      },
+                      child: Text(
+                        tr(context, "Skip"),
+                        style: TextStyle(
+                            color:
+                                Theme.of(context).textTheme.bodyLarge!.color),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Expanded(
@@ -96,8 +104,8 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
                     });
                   },
                   itemBuilder: (context, index) => OnbordingContent(
-                    title: _onbordData[index].title,
-                    description: _onbordData[index].description,
+                    title: tr(context, _onbordData[index].title),
+                    description: tr(context, _onbordData[index].description),
                     image: (Theme.of(context).brightness == Brightness.dark &&
                             _onbordData[index].imageDarkTheme != null)
                         ? _onbordData[index].imageDarkTheme!

@@ -4,6 +4,7 @@ import 'package:sneaker_shop/models/product_model.dart';
 import 'package:sneaker_shop/route/screen_export.dart';
 
 import '../../../../constants.dart';
+import 'package:sneaker_shop/l10n/l10n.dart';
 
 class PopularProducts extends StatelessWidget {
   const PopularProducts({
@@ -19,17 +20,14 @@ class PopularProducts extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(defaultPadding),
           child: Text(
-            "Popular sneakers",
+            tr(context, "Popular sneakers"),
             style: Theme.of(context).textTheme.titleSmall,
           ),
         ),
-        // While loading use 👇
-        // const ProductsSkelton(),
         SizedBox(
           height: 220,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            // Find demoPopularProducts on models/ProductModel.dart
             itemCount: demoPopularProducts.length,
             itemBuilder: (context, index) => Padding(
               padding: EdgeInsets.only(

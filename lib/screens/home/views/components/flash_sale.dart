@@ -4,6 +4,7 @@ import 'package:sneaker_shop/route/route_constants.dart';
 import '/components/Banner/M/banner_m_with_counter.dart';
 import '../../../../components/product/product_card.dart';
 import '../../../../constants.dart';
+import 'package:sneaker_shop/l10n/l10n.dart';
 import '../../../../models/product_model.dart';
 
 class FlashSale extends StatelessWidget {
@@ -16,28 +17,23 @@ class FlashSale extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // While loading show 👇
-        // const BannerMWithCounterSkelton(),
         BannerMWithCounter(
           duration: const Duration(hours: 8),
-          text: "Super Flash Sale \n50% Off",
+          text: tr(context, "Super Flash Sale \n50% Off"),
           press: () {},
         ),
         const SizedBox(height: defaultPadding / 2),
         Padding(
           padding: const EdgeInsets.all(defaultPadding),
           child: Text(
-            "Flash sale",
+            tr(context, "Flash sale"),
             style: Theme.of(context).textTheme.titleSmall,
           ),
         ),
-        // While loading show 👇
-        // const ProductsSkelton(),
         SizedBox(
           height: 220,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            // Find demoFlashSaleProducts on models/ProductModel.dart
             itemCount: demoFlashSaleProducts.length,
             itemBuilder: (context, index) => Padding(
               padding: EdgeInsets.only(

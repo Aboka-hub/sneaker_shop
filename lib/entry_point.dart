@@ -2,6 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sneaker_shop/constants.dart';
+import 'package:sneaker_shop/l10n/l10n.dart';
 import 'package:sneaker_shop/route/screen_export.dart';
 
 class EntryPoint extends StatefulWidget {
@@ -16,7 +17,6 @@ class _EntryPointState extends State<EntryPoint> {
     HomeScreen(),
     DiscoverScreen(),
     BookmarkScreen(),
-    // EmptyCartScreen(), // if Cart is empty
     CartScreen(),
     ProfileScreen(),
   ];
@@ -38,9 +38,6 @@ class _EntryPointState extends State<EntryPoint> {
 
     return Scaffold(
       appBar: AppBar(
-        // pinned: true,
-        // floating: true,
-        // snap: true,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         leading: const SizedBox(),
         leadingWidth: 0,
@@ -54,6 +51,7 @@ class _EntryPointState extends State<EntryPoint> {
               ),
         ),
         actions: [
+          const LanguageButton(),
           IconButton(
             onPressed: () {
               Navigator.pushNamed(context, searchScreenRoute);
@@ -68,7 +66,6 @@ class _EntryPointState extends State<EntryPoint> {
           ),
         ],
       ),
-      // body: _pages[_currentIndex],
       body: PageTransitionSwitcher(
         duration: defaultDuration,
         transitionBuilder: (child, animation, secondAnimation) {
@@ -98,7 +95,6 @@ class _EntryPointState extends State<EntryPoint> {
               ? Colors.white
               : const Color(0xFF101015),
           type: BottomNavigationBarType.fixed,
-          // selectedLabelStyle: TextStyle(color: primaryColor),
           selectedFontSize: 12,
           selectedItemColor: primaryColor,
           unselectedItemColor: Colors.transparent,
@@ -106,30 +102,30 @@ class _EntryPointState extends State<EntryPoint> {
             BottomNavigationBarItem(
               icon: svgIcon("assets/icons/Shop.svg"),
               activeIcon: svgIcon("assets/icons/Shop.svg", color: primaryColor),
-              label: "Shop",
+              label: tr(context, "Shop"),
             ),
             BottomNavigationBarItem(
               icon: svgIcon("assets/icons/Category.svg"),
               activeIcon:
                   svgIcon("assets/icons/Category.svg", color: primaryColor),
-              label: "Discover",
+              label: tr(context, "Discover"),
             ),
             BottomNavigationBarItem(
               icon: svgIcon("assets/icons/Bookmark.svg"),
               activeIcon:
                   svgIcon("assets/icons/Bookmark.svg", color: primaryColor),
-              label: "Bookmark",
+              label: tr(context, "Bookmark"),
             ),
             BottomNavigationBarItem(
               icon: svgIcon("assets/icons/Bag.svg"),
               activeIcon: svgIcon("assets/icons/Bag.svg", color: primaryColor),
-              label: "Cart",
+              label: tr(context, "Cart"),
             ),
             BottomNavigationBarItem(
               icon: svgIcon("assets/icons/Profile.svg"),
               activeIcon:
                   svgIcon("assets/icons/Profile.svg", color: primaryColor),
-              label: "Profile",
+              label: tr(context, "Profile"),
             ),
           ],
         ),

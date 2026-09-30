@@ -31,7 +31,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       );
     case searchScreenRoute:
       return MaterialPageRoute(
-        builder: (context) => const SearchScreen(),
+        builder: (context) => SearchScreen(
+          category: settings.arguments as String?,
+        ),
       );
     case bookmarkScreenRoute:
       return MaterialPageRoute(
@@ -41,9 +43,35 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(
         builder: (context) => const CartScreen(),
       );
+    case checkoutScreenRoute:
+      return MaterialPageRoute(
+        builder: (context) => const CheckoutScreen(),
+      );
+    case cardsScreenRoute:
+      return MaterialPageRoute(
+        builder: (context) => const CardsScreen(),
+      );
+    case ordersScreenRoute:
+      return MaterialPageRoute(
+        builder: (context) => const OrdersScreen(),
+      );
+    case orderDetailsScreenRoute:
+      return MaterialPageRoute(
+        builder: (context) => OrderDetailsScreen(
+          orderId: settings.arguments as String? ?? "",
+        ),
+      );
+    case returnsScreenRoute:
+      return MaterialPageRoute(
+        builder: (context) => const ReturnsScreen(),
+      );
     case profileScreenRoute:
       return MaterialPageRoute(
         builder: (context) => const ProfileScreen(),
+      );
+    case userInfoScreenRoute:
+      return MaterialPageRoute(
+        builder: (context) => const UserInfoScreen(),
       );
     case productDetailsScreenRoute:
       return MaterialPageRoute(

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
-// Демо-фото кроссовок лежат в assets, поэтому приложение работает без интернета
 const sneakerImg1 = "assets/images/products/jordan_1.webp";
 const sneakerImg2 = "assets/images/products/jordan_2.webp";
 const sneakerImg3 = "assets/images/products/jordan_3.webp";
 const sneakerImg4 = "assets/images/products/jordan_4.webp";
-const sneakerImg5 = "assets/images/products/cleats_1.webp";
-const sneakerImg6 = "assets/images/products/cleats_2.webp";
+const sneakerImg5 = "assets/images/products/jordan_4.webp";
+const sneakerImg6 = "assets/images/products/puma_2.webp";
 const sneakerImg7 = "assets/images/products/puma_1.webp";
 const sneakerImg8 = "assets/images/products/puma_2.webp";
 const sneakerImg9 = "assets/images/products/puma_3.webp";
@@ -15,13 +14,12 @@ const sneakerImg10 = "assets/images/products/offwhite_1.webp";
 const sneakerImg11 = "assets/images/products/offwhite_2.webp";
 const sneakerImg12 = "assets/images/products/offwhite_red_1.webp";
 const sneakerImg13 = "assets/images/products/offwhite_red_2.webp";
-const sneakerImg14 = "assets/images/products/pampi_1.webp";
-const sneakerImg15 = "assets/images/products/red_1.webp";
-const sneakerImg16 = "assets/images/products/golden_1.webp";
+const sneakerImg14 = "assets/images/products/jordan_1.webp";
+const sneakerImg15 = "assets/images/products/puma_1.webp";
+const sneakerImg16 = "assets/images/products/offwhite_1.webp";
+const profileAvatar = "assets/images/profile_avatar.jpg";
 
 const grandisExtendedFont = "Grandis Extended";
-
-// On color 80, 60.... those means opacity
 
 const Color primaryColor = Color(0xFF7B61FF);
 
@@ -58,12 +56,6 @@ const Color whileColor5 = Color(0xFF0D0D0D);
 const Color greyColor = Color(0xFFB8B5C3);
 const Color lightGreyColor = Color(0xFFF8F8F9);
 const Color darkGreyColor = Color(0xFF1C1C25);
-// const Color greyColor80 = Color(0xFFC6C4CF);
-// const Color greyColor60 = Color(0xFFD4D3DB);
-// const Color greyColor40 = Color(0xFFE3E1E7);
-// const Color greyColor20 = Color(0xFFF1F0F3);
-// const Color greyColor10 = Color(0xFFF8F8F9);
-// const Color greyColor5 = Color(0xFFFBFBFC);
 
 const Color purpleColor = Color(0xFF7B61FF);
 const Color successColor = Color(0xFF2ED573);

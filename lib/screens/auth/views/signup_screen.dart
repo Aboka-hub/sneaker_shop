@@ -4,6 +4,7 @@ import 'package:sneaker_shop/screens/auth/views/components/sign_up_form.dart';
 import 'package:sneaker_shop/route/route_constants.dart';
 
 import '../../../constants.dart';
+import 'package:sneaker_shop/l10n/l10n.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -70,17 +71,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   onPressed: () {
                     Navigator.pushNamed(context, entryPointScreenRoute);
                   },
-                  child: const Text("Continue"),
+                  child: Text(tr(context, "Continue")),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Do you have an account?"),
+                    Text(tr(context, "Do you have an account?")),
                     TextButton(
                       onPressed: () {
                         Navigator.pushNamed(context, logInScreenRoute);
                       },
-                      child: const Text("Log in"),
+                      child: Text(tr(context, "Log in")),
                     )
                   ],
                 ),
