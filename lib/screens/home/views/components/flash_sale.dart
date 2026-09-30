@@ -24,7 +24,7 @@ class FlashSale extends StatelessWidget {
             Navigator.pushNamed(
               context,
               productDetailsScreenRoute,
-              arguments: "Air Jordan 1 Retro High",
+              arguments: "air-jordan-1-retro-high",
             );
           },
         ),
@@ -58,7 +58,7 @@ class FlashSale extends StatelessWidget {
                 dicountpercent: demoFlashSaleProducts[index].dicountpercent,
                 press: () {
                   Navigator.pushNamed(context, productDetailsScreenRoute,
-                      arguments: demoFlashSaleProducts[index].title);
+                      arguments: demoFlashSaleProducts[index].id);
                 },
               ),
             ),

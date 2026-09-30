@@ -107,7 +107,7 @@ class DiscoverScreen extends StatelessWidget {
                         Navigator.pushNamed(
                           context,
                           productDetailsScreenRoute,
-                          arguments: product.title,
+                          arguments: product.id,
                         );
                       },
                     ),

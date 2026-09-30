@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sneaker_shop/constants.dart';
 import 'package:sneaker_shop/l10n/l10n.dart';
+import 'package:sneaker_shop/models/shop_store.dart';
 import 'package:sneaker_shop/route/route_constants.dart';
 
 import 'components/login_form.dart';
@@ -14,6 +15,34 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  void _submit() {
+    if (!_formKey.currentState!.validate()) return;
+    final ok = ShopStore.instance.login(
+      _emailController.text,
+      _passwordController.text,
+    );
+    if (!ok) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(tr(context, "Invalid email or password"))),
+      );
+      return;
+    }
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      entryPointScreenRoute,
+      (route) => false,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +69,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const SizedBox(height: defaultPadding),
-                LogInForm(formKey: _formKey),
+                LogInForm(
+                  formKey: _formKey,
+                  emailController: _emailController,
+                  passwordController: _passwordController,
+                ),
                 Align(
                   child: TextButton(
                     child: Text(tr(context, "Forgot password")),
@@ -61,15 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       : defaultPadding,
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        entryPointScreenRoute,
-                        (route) => false,
-                      );
-                    }
-                  },
+                  onPressed: _submit,
                   child: Text(tr(context, "Log in")),
                 ),
                 Row(

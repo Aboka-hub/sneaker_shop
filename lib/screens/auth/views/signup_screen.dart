@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:sneaker_shop/screens/auth/views/components/sign_up_form.dart';
+import 'package:sneaker_shop/models/shop_store.dart';
 import 'package:sneaker_shop/route/route_constants.dart';
 
 import '../../../constants.dart';
@@ -15,6 +16,48 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool _agreed = false;
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  void _submit() {
+    if (!_formKey.currentState!.validate()) return;
+    if (!_agreed) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content:
+              Text(tr(context, "Please agree to the terms to continue")),
+        ),
+      );
+      return;
+    }
+    final ok = ShopStore.instance.register(
+      _emailController.text,
+      _passwordController.text,
+    );
+    if (!ok) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            tr(context, "An account with this email already exists"),
+          ),
+        ),
+      );
+      return;
+    }
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      entryPointScreenRoute,
+      (route) => false,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,13 +82,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ),
                 const SizedBox(height: defaultPadding),
-                SignUpForm(formKey: _formKey),
+                SignUpForm(
+                  formKey: _formKey,
+                  emailController: _emailController,
+                  passwordController: _passwordController,
+                ),
                 const SizedBox(height: defaultPadding),
                 Row(
                   children: [
                     Checkbox(
-                      onChanged: (value) {},
-                      value: false,
+                      onChanged: (value) =>
+                          setState(() => _agreed = value ?? false),
+                      value: _agreed,
                     ),
                     Expanded(
                       child: Text.rich(
@@ -72,13 +120,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 const SizedBox(height: defaultPadding * 2),
                 ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      entryPointScreenRoute,
-                      (route) => false,
-                    );
-                  },
+                  onPressed: _submit,
                   child: Text(tr(context, "Continue")),
                 ),
                 Row(

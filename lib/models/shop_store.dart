@@ -1,9 +1,15 @@
 import 'dart:convert';
 
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sneaker_shop/constants.dart';
 import 'package:sneaker_shop/models/product_model.dart';
+
+String _normalizeEmail(String email) => email.trim().toLowerCase();
+
+String _hashPassword(String password) =>
+    sha256.convert(utf8.encode(password)).toString();
 
 class ShoeColor {
   const ShoeColor(this.name, this.color);
@@ -39,7 +45,7 @@ class CartLine {
   double get lineTotal => unitPrice * quantity;
 
   bool sameVariant(ProductModel product, String size, String colorName) =>
-      this.product.title == product.title &&
+      this.product.id == product.id &&
       this.size == size &&
       this.colorName == colorName;
 }
@@ -106,11 +112,15 @@ class ShopStore extends ChangeNotifier {
   final List<PaymentCard> cards = [];
   final List<ShopOrder> orders = [];
   final List<String> wishlist = [];
+  final Map<String, String> _accounts = {};
   int _orderSeq = 1002;
   String userName = "Alex Runner";
   String userEmail = "alex@sneakerhub.com";
   String userPhone = "+7 700 000 00 00";
   String avatarAsset = profileAvatar;
+  String? currentUserEmail;
+
+  bool get isLoggedIn => currentUserEmail != null;
 
   void _seed() {
     cart
@@ -153,7 +163,9 @@ class ShopStore extends ChangeNotifier {
       );
     wishlist
       ..clear()
-      ..add(demoPopularProducts[0].title);
+      ..add(demoPopularProducts[0].id);
+    _accounts.clear();
+    currentUserEmail = null;
     _orderSeq = 1002;
     userName = "Alex Runner";
     userEmail = "alex@sneakerhub.com";
@@ -178,6 +190,13 @@ class ShopStore extends ChangeNotifier {
         avatarAsset = savedAvatar;
       }
       _orderSeq = data["orderSeq"] as int? ?? _orderSeq;
+      currentUserEmail = data["currentUserEmail"] as String?;
+      _accounts
+        ..clear()
+        ..addAll({
+          for (final entry in ((data["accounts"] as Map?) ?? const {}).entries)
+            entry.key as String: entry.value as String,
+        });
 
       cart
         ..clear()
@@ -191,8 +210,8 @@ class ShopStore extends ChangeNotifier {
       wishlist
         ..clear()
         ..addAll([
-          for (final title in (data["wishlist"] as List?) ?? const [])
-            if (productByTitle(title as String) != null) title,
+          for (final id in (data["wishlist"] as List?) ?? const [])
+            if (productById(id as String) != null) id,
         ]);
       notifyListeners();
     } catch (_) {}
@@ -202,7 +221,7 @@ class ShopStore extends ChangeNotifier {
     final lines = <CartLine>[];
     for (final item in (raw as List?) ?? const []) {
       final map = item as Map<String, dynamic>;
-      final product = productByTitle(map["title"] as String? ?? "");
+      final product = productById(map["id"] as String? ?? "");
       if (product == null) continue;
       lines.add(CartLine(
         product: product,
@@ -232,7 +251,7 @@ class ShopStore extends ChangeNotifier {
       final items = <OrderItem>[];
       for (final line in (map["items"] as List?) ?? const []) {
         final row = line as Map<String, dynamic>;
-        final product = productByTitle(row["title"] as String? ?? "");
+        final product = productById(row["id"] as String? ?? "");
         if (product == null) continue;
         items.add(OrderItem(
           product: product,
@@ -266,11 +285,13 @@ class ShopStore extends ChangeNotifier {
         "userPhone": userPhone,
         "avatarAsset": avatarAsset,
         "orderSeq": _orderSeq,
+        "currentUserEmail": currentUserEmail,
+        "accounts": _accounts,
         "wishlist": wishlist,
         "cart": [
           for (final line in cart)
             {
-              "title": line.product.title,
+              "id": line.product.id,
               "quantity": line.quantity,
               "size": line.size,
               "color": line.colorName,
@@ -296,7 +317,7 @@ class ShopStore extends ChangeNotifier {
               "items": [
                 for (final item in order.items)
                   {
-                    "title": item.product.title,
+                    "id": item.product.id,
                     "quantity": item.quantity,
                     "price": item.price,
                     "size": item.size,
@@ -317,6 +338,40 @@ class ShopStore extends ChangeNotifier {
   void _changed() {
     notifyListeners();
     _persist();
+  }
+
+  bool accountExists(String email) =>
+      _accounts.containsKey(_normalizeEmail(email));
+
+  bool register(String email, String password) {
+    final normalized = _normalizeEmail(email);
+    if (_accounts.containsKey(normalized)) return false;
+    _accounts[normalized] = _hashPassword(password);
+    currentUserEmail = normalized;
+    userEmail = normalized;
+    final localPart = normalized.split("@").first;
+    if (localPart.isNotEmpty) {
+      userName = localPart[0].toUpperCase() + localPart.substring(1);
+    }
+    _changed();
+    return true;
+  }
+
+  bool login(String email, String password) {
+    final normalized = _normalizeEmail(email);
+    final storedHash = _accounts[normalized];
+    if (storedHash == null || storedHash != _hashPassword(password)) {
+      return false;
+    }
+    currentUserEmail = normalized;
+    userEmail = normalized;
+    _changed();
+    return true;
+  }
+
+  void logout() {
+    currentUserEmail = null;
+    _changed();
   }
 
   void updateProfile({
@@ -340,13 +395,13 @@ class ShopStore extends ChangeNotifier {
 
   double get cartTotal => cart.fold(0, (sum, line) => sum + line.lineTotal);
 
-  bool isInWishlist(ProductModel product) => wishlist.contains(product.title);
+  bool isInWishlist(ProductModel product) => wishlist.contains(product.id);
 
   void toggleWishlist(ProductModel product) {
     if (isInWishlist(product)) {
-      wishlist.remove(product.title);
+      wishlist.remove(product.id);
     } else {
-      wishlist.add(product.title);
+      wishlist.add(product.id);
     }
     _changed();
   }

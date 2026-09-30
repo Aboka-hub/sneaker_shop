@@ -16,8 +16,8 @@ class BookmarkScreen extends StatelessWidget {
       listenable: ShopStore.instance,
       builder: (context, _) {
         final products = [
-          for (final title in ShopStore.instance.wishlist)
-            if (productByTitle(title) != null) productByTitle(title)!,
+          for (final id in ShopStore.instance.wishlist)
+            if (productById(id) != null) productById(id)!,
         ];
 
         return Scaffold(
@@ -55,7 +55,7 @@ class BookmarkScreen extends StatelessWidget {
                                 Navigator.pushNamed(
                                   context,
                                   productDetailsScreenRoute,
-                                  arguments: product.title,
+                                  arguments: product.id,
                                 );
                               },
                             );

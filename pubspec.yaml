@@ -21,6 +21,7 @@ dependencies:
   animations: ^2.0.11
   url_launcher: ^6.3.0
   shared_preferences: ^2.5.5
+  crypto: ^3.0.7
 
 dev_dependencies:
   flutter_test:

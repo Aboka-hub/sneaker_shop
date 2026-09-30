@@ -236,7 +236,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       Navigator.pushNamed(
                         context,
                         productDetailsScreenRoute,
-                        arguments: results[index].title,
+                        arguments: results[index].id,
                       );
                     },
                   ),

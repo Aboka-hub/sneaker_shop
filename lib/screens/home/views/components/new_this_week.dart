@@ -47,7 +47,7 @@ class NewThisWeek extends StatelessWidget {
                   Navigator.pushNamed(
                     context,
                     productDetailsScreenRoute,
-                    arguments: products[index].title,
+                    arguments: products[index].id,
                   );
                 },
               ),

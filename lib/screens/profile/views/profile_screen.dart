@@ -102,6 +102,7 @@ class ProfileScreen extends StatelessWidget {
 
           ListTile(
             onTap: () {
+              ShopStore.instance.logout();
               Navigator.pushNamedAndRemoveUntil(
                 context,
                 logInScreenRoute,

@@ -1,6 +1,7 @@
 import 'package:sneaker_shop/constants.dart';
 
 class ProductModel {
+  final String id;
   final String image, brandName, title;
   final double price;
   final double? priceAfetDiscount;
@@ -10,6 +11,7 @@ class ProductModel {
   final List<String> tags;
 
   ProductModel({
+    required this.id,
     required this.image,
     required this.brandName,
     required this.title,
@@ -23,6 +25,7 @@ class ProductModel {
 
 List<ProductModel> demoPopularProducts = [
   ProductModel(
+    id: "air-jordan-1-retro-high",
     image: sneakerImg1,
     title: "Air Jordan 1 Retro High",
     brandName: "Nike",
@@ -32,6 +35,7 @@ List<ProductModel> demoPopularProducts = [
     tags: const ["New arrivals", "Retro", "High tops", "Basketball"],
   ),
   ProductModel(
+    id: "future-rider-trainers",
     image: sneakerImg7,
     title: "Future Rider Trainers",
     brandName: "Puma",
@@ -39,6 +43,7 @@ List<ProductModel> demoPopularProducts = [
     tags: const ["Lifestyle", "Running"],
   ),
   ProductModel(
+    id: "sports-sneakers-off-white-red",
     image: sneakerImg10,
     title: "Sports Sneakers Off White & Red",
     brandName: "Off White",
@@ -48,6 +53,7 @@ List<ProductModel> demoPopularProducts = [
     tags: const ["New arrivals", "Lifestyle"],
   ),
   ProductModel(
+    id: "air-jordan-4-retro",
     image: sneakerImg4,
     title: "Air Jordan 4 Retro",
     brandName: "Nike",
@@ -57,6 +63,7 @@ List<ProductModel> demoPopularProducts = [
     tags: const ["Retro", "High tops", "Basketball"],
   ),
   ProductModel(
+    id: "off-white-red-low",
     image: sneakerImg13,
     title: "Off White Red Low",
     brandName: "Off White",
@@ -68,6 +75,7 @@ List<ProductModel> demoPopularProducts = [
 
 List<ProductModel> demoFlashSaleProducts = [
   ProductModel(
+    id: "air-jordan-1-red-black",
     image: sneakerImg2,
     title: "Air Jordan 1 Red & Black",
     brandName: "Nike",
@@ -77,6 +85,7 @@ List<ProductModel> demoFlashSaleProducts = [
     tags: const ["Retro", "High tops", "Basketball"],
   ),
   ProductModel(
+    id: "sports-sneakers-off-white-red-2",
     image: sneakerImg12,
     title: "Sports Sneakers Off White Red",
     brandName: "Off White",
@@ -86,6 +95,7 @@ List<ProductModel> demoFlashSaleProducts = [
     tags: const ["Lifestyle"],
   ),
   ProductModel(
+    id: "future-rider-play-on",
     image: sneakerImg8,
     title: "Future Rider Play On",
     brandName: "Puma",
@@ -98,6 +108,7 @@ List<ProductModel> demoFlashSaleProducts = [
 
 List<ProductModel> demoBestSellersProducts = [
   ProductModel(
+    id: "future-rider-neon-pack",
     image: sneakerImg9,
     title: "Future Rider Neon Pack",
     brandName: "Puma",
@@ -107,6 +118,7 @@ List<ProductModel> demoBestSellersProducts = [
     tags: const ["Running", "Lifestyle"],
   ),
   ProductModel(
+    id: "off-white-court-sneakers",
     image: sneakerImg11,
     title: "Off White Court Sneakers",
     brandName: "Off White",
@@ -114,6 +126,7 @@ List<ProductModel> demoBestSellersProducts = [
     tags: const ["Basketball", "Lifestyle"],
   ),
   ProductModel(
+    id: "air-jordan-1-mid-chicago",
     image: sneakerImg3,
     title: "Air Jordan 1 Mid Chicago",
     brandName: "Nike",
@@ -126,6 +139,7 @@ List<ProductModel> demoBestSellersProducts = [
 
 List<ProductModel> demoExtraProducts = [
   ProductModel(
+    id: "nike-free-rn-flyknit",
     image: "assets/images/products/extra_1.jpg",
     title: "Nike Free RN Flyknit",
     brandName: "Nike",
@@ -135,6 +149,7 @@ List<ProductModel> demoExtraProducts = [
     tags: const ["Running", "New arrivals"],
   ),
   ProductModel(
+    id: "nike-court-low",
     image: "assets/images/products/extra_2.jpg",
     title: "Nike Court Low",
     brandName: "Nike",
@@ -142,6 +157,7 @@ List<ProductModel> demoExtraProducts = [
     tags: const ["Lifestyle", "Retro"],
   ),
   ProductModel(
+    id: "nike-air-force-shadow",
     image: "assets/images/products/extra_3.jpg",
     title: "Nike Air Force Shadow",
     brandName: "Nike",
@@ -152,6 +168,7 @@ List<ProductModel> demoExtraProducts = [
     tags: const ["Girls", "Lifestyle", "New arrivals"],
   ),
   ProductModel(
+    id: "nike-superrep",
     image: "assets/images/products/extra_4.jpg",
     title: "Nike SuperRep",
     brandName: "Nike",
@@ -159,6 +176,7 @@ List<ProductModel> demoExtraProducts = [
     tags: const ["Running"],
   ),
   ProductModel(
+    id: "nike-air-force-1",
     image: "assets/images/products/extra_5.jpg",
     title: "Nike Air Force 1",
     brandName: "Nike",
@@ -167,6 +185,7 @@ List<ProductModel> demoExtraProducts = [
     tags: const ["Boys", "High tops", "Lifestyle"],
   ),
   ProductModel(
+    id: "new-balance-x-90",
     image: "assets/images/products/extra_6.jpg",
     title: "New Balance X-90",
     brandName: "New Balance",
@@ -177,6 +196,7 @@ List<ProductModel> demoExtraProducts = [
     tags: const ["Girls", "Lifestyle"],
   ),
   ProductModel(
+    id: "puma-smash-kids",
     image: "assets/images/products/extra_7.jpg",
     title: "Puma Smash Kids",
     brandName: "Puma",
@@ -185,6 +205,7 @@ List<ProductModel> demoExtraProducts = [
     tags: const ["First steps"],
   ),
   ProductModel(
+    id: "color-block-kids",
     image: "assets/images/products/extra_8.jpg",
     title: "Color Block Kids",
     brandName: "Puma",
@@ -193,6 +214,7 @@ List<ProductModel> demoExtraProducts = [
     tags: const ["Boys", "First steps"],
   ),
   ProductModel(
+    id: "nike-phantom-indoor",
     image: "assets/images/products/extra_12.jpg",
     title: "Nike Phantom Indoor",
     brandName: "Nike",
@@ -202,6 +224,7 @@ List<ProductModel> demoExtraProducts = [
     tags: const ["Football boots", "New arrivals"],
   ),
   ProductModel(
+    id: "new-balance-247",
     image: "assets/images/products/extra_13.jpg",
     title: "New Balance 247",
     brandName: "New Balance",
@@ -212,16 +235,16 @@ List<ProductModel> demoExtraProducts = [
 ];
 
 List<ProductModel> catalogProducts() {
-  final byTitle = <String, ProductModel>{};
+  final byId = <String, ProductModel>{};
   for (final product in [
     ...demoPopularProducts,
     ...demoFlashSaleProducts,
     ...demoBestSellersProducts,
     ...demoExtraProducts,
   ]) {
-    byTitle[product.title] = product;
+    byId[product.id] = product;
   }
-  return byTitle.values.toList();
+  return byId.values.toList();
 }
 
 const brandSections = ["Nike", "Puma", "New Balance", "Off White"];
@@ -250,9 +273,9 @@ bool matchesCatalogSection(ProductModel product, String? section) {
   }
 }
 
-ProductModel? productByTitle(String title) {
+ProductModel? productById(String id) {
   for (final product in catalogProducts()) {
-    if (product.title == title) return product;
+    if (product.id == id) return product;
   }
   return null;
 }

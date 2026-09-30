@@ -45,7 +45,7 @@ class PopularProducts extends StatelessWidget {
                 dicountpercent: demoPopularProducts[index].dicountpercent,
                 press: () {
                   Navigator.pushNamed(context, productDetailsScreenRoute,
-                      arguments: demoPopularProducts[index].title);
+                      arguments: demoPopularProducts[index].id);
                 },
               ),
             ),

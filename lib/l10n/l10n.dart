@@ -175,6 +175,11 @@ const _ru = {
       "Пароль должен быть не короче 8 символов",
   "Password needs a special character":
       "В пароле нужен хотя бы один спецсимвол",
+  "Invalid email or password": "Неверная почта или пароль",
+  "An account with this email already exists":
+      "Аккаунт с такой почтой уже существует",
+  "Please agree to the terms to continue":
+      "Нужно принять условия использования",
   "Shop now": "Смотреть",
   "Forgot password": "Забыли пароль",
   "Log in": "Войти",

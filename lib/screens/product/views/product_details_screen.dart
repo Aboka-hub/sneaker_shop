@@ -20,21 +20,21 @@ import 'product_buy_now_screen.dart';
 class ProductDetailsScreen extends StatelessWidget {
   const ProductDetailsScreen({
     super.key,
-    this.productTitle,
+    this.productId,
     this.isProductAvailable = true,
   });
 
-  final String? productTitle;
+  final String? productId;
   final bool isProductAvailable;
 
   ProductModel get product =>
-      productByTitle(productTitle ?? "") ?? demoPopularProducts.first;
+      productById(productId ?? "") ?? demoPopularProducts.first;
 
   @override
   Widget build(BuildContext context) {
     final related = [
       for (final item in catalogProducts())
-        if (item.title != product.title) item,
+        if (item.id != product.id) item,
     ].take(8).toList();
 
     return Scaffold(
@@ -170,7 +170,7 @@ class ProductDetailsScreen extends StatelessWidget {
                         Navigator.pushNamed(
                           context,
                           productDetailsScreenRoute,
-                          arguments: related[index].title,
+                          arguments: related[index].id,
                         );
                       },
                     ),

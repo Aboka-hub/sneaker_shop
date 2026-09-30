@@ -30,7 +30,9 @@ class MyApp extends StatelessWidget {
             child: child ?? const SizedBox.shrink(),
           ),
           onGenerateRoute: router.generateRoute,
-          initialRoute: onbordingScreenRoute,
+          initialRoute: ShopStore.instance.isLoggedIn
+              ? entryPointScreenRoute
+              : onbordingScreenRoute,
         );
       },
     );

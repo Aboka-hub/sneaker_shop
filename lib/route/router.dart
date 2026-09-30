@@ -82,7 +82,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         builder: (context) {
           final args = settings.arguments;
           if (args is String) {
-            return ProductDetailsScreen(productTitle: args);
+            return ProductDetailsScreen(productId: args);
           }
           return ProductDetailsScreen(
             isProductAvailable: args as bool? ?? true,

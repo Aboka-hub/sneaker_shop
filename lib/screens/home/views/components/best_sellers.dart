@@ -46,7 +46,7 @@ class BestSellers extends StatelessWidget {
                 dicountpercent: demoBestSellersProducts[index].dicountpercent,
                 press: () {
                   Navigator.pushNamed(context, productDetailsScreenRoute,
-                      arguments: demoBestSellersProducts[index].title);
+                      arguments: demoBestSellersProducts[index].id);
                 },
               ),
             ),
