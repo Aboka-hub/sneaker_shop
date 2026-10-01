@@ -11,6 +11,7 @@ export '/screens/bookmark/views/bookmark_screen.dart';
 export '/screens/checkout/views/cart_screen.dart';
 export '/screens/checkout/views/checkout_screen.dart';
 export '/screens/checkout/views/cards_screen.dart';
+export '/screens/checkout/views/addresses_screen.dart';
 export '/screens/order/views/orders_screen.dart';
 export '/screens/order/views/order_details_screen.dart';
 export '/screens/order/views/returns_screen.dart';

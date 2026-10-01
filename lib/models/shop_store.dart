@@ -62,6 +62,18 @@ class PaymentCard {
   final String expiry;
 }
 
+class Address {
+  Address({
+    required this.id,
+    required this.label,
+    required this.fullAddress,
+  });
+
+  final String id;
+  final String label;
+  final String fullAddress;
+}
+
 enum OrderStatus { processing, delivered, returnRequested, returned }
 
 class OrderItem {
@@ -110,10 +122,12 @@ class ShopStore extends ChangeNotifier {
 
   final List<CartLine> cart = [];
   final List<PaymentCard> cards = [];
+  final List<Address> addresses = [];
   final List<ShopOrder> orders = [];
   final List<String> wishlist = [];
   final List<String> notifyList = [];
   final Map<String, String> _accounts = {};
+  int _addressSeq = 1;
   int _orderSeq = 1002;
   String userName = "Alex Runner";
   String userEmail = "alex@sneakerhub.com";
@@ -148,6 +162,10 @@ class ShopStore extends ChangeNotifier {
     cards
       ..clear()
       ..add(PaymentCard(holder: "Alex Runner", last4: "4242", expiry: "12/28"));
+    addresses
+      ..clear()
+      ..add(Address(id: "addr-1", label: "Дом", fullAddress: "Абая 10, Алматы"));
+    _addressSeq = 2;
     orders
       ..clear()
       ..add(
@@ -201,6 +219,7 @@ class ShopStore extends ChangeNotifier {
         avatarAsset = savedAvatar;
       }
       _orderSeq = data["orderSeq"] as int? ?? _orderSeq;
+      _addressSeq = data["addressSeq"] as int? ?? _addressSeq;
       currentUserEmail = data["currentUserEmail"] as String?;
       themeMode = ThemeMode.values.firstWhere(
         (mode) => mode.name == data["themeMode"],
@@ -219,6 +238,9 @@ class ShopStore extends ChangeNotifier {
       cards
         ..clear()
         ..addAll(_readCards(data["cards"]));
+      addresses
+        ..clear()
+        ..addAll(_readAddresses(data["addresses"]));
       orders
         ..clear()
         ..addAll(_readOrders(data["orders"]));
@@ -265,6 +287,17 @@ class ShopStore extends ChangeNotifier {
     ];
   }
 
+  List<Address> _readAddresses(Object? raw) {
+    return [
+      for (final item in (raw as List?) ?? const [])
+        Address(
+          id: (item as Map)["id"] as String? ?? "",
+          label: item["label"] as String? ?? "",
+          fullAddress: item["fullAddress"] as String? ?? "",
+        ),
+    ];
+  }
+
   List<ShopOrder> _readOrders(Object? raw) {
     final result = <ShopOrder>[];
     for (final item in (raw as List?) ?? const []) {
@@ -306,6 +339,7 @@ class ShopStore extends ChangeNotifier {
         "userPhone": userPhone,
         "avatarAsset": avatarAsset,
         "orderSeq": _orderSeq,
+        "addressSeq": _addressSeq,
         "currentUserEmail": currentUserEmail,
         "themeMode": themeMode.name,
         "accounts": _accounts,
@@ -326,6 +360,14 @@ class ShopStore extends ChangeNotifier {
               "holder": card.holder,
               "last4": card.last4,
               "expiry": card.expiry,
+            },
+        ],
+        "addresses": [
+          for (final address in addresses)
+            {
+              "id": address.id,
+              "label": address.label,
+              "fullAddress": address.fullAddress,
             },
         ],
         "orders": [
@@ -496,6 +538,21 @@ class ShopStore extends ChangeNotifier {
 
   void addCard(PaymentCard card) {
     cards.add(card);
+    _changed();
+  }
+
+  void addAddress(String label, String fullAddress) {
+    addresses.add(Address(
+      id: "addr-$_addressSeq",
+      label: label,
+      fullAddress: fullAddress,
+    ));
+    _addressSeq++;
+    _changed();
+  }
+
+  void removeAddress(String id) {
+    addresses.removeWhere((address) => address.id == id);
     _changed();
   }
 

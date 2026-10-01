@@ -61,6 +61,13 @@ class ProfileScreen extends StatelessWidget {
             },
           ),
           ProfileMenuListTile(
+            text: tr(context, "My addresses"),
+            svgSrc: "assets/icons/Address.svg",
+            press: () {
+              Navigator.pushNamed(context, addressesScreenRoute);
+            },
+          ),
+          ProfileMenuListTile(
             text: tr(context, "Wishlist"),
             svgSrc: "assets/icons/Wishlist.svg",
             press: () {

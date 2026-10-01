@@ -16,3 +16,4 @@ const String orderDetailsScreenRoute = "order_details";
 const String returnsScreenRoute = "returns";
 const String userInfoScreenRoute = "user_info";
 const String settingsScreenRoute = "settings";
+const String addressesScreenRoute = "addresses";

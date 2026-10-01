@@ -16,9 +16,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   final _formKey = GlobalKey<FormState>();
   final _name = TextEditingController(text: ShopStore.instance.userName);
   final _phone = TextEditingController(text: ShopStore.instance.userPhone);
-  final _address = TextEditingController();
   final _promo = TextEditingController();
   int _cardIndex = 0;
+  int _addressIndex = 0;
   String? _appliedCode;
   bool _promoRejected = false;
 
@@ -65,7 +65,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   void dispose() {
     _name.dispose();
     _phone.dispose();
-    _address.dispose();
     _promo.dispose();
     super.dispose();
   }
@@ -73,6 +72,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   void _placeOrder() {
     final store = ShopStore.instance;
     if (!_formKey.currentState!.validate()) return;
+    if (store.addresses.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(tr(context, "Add a delivery address first"))),
+      );
+      Navigator.pushNamed(context, addressesScreenRoute);
+      return;
+    }
     if (store.cards.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(tr(context, "Add a payment card first"))),
@@ -80,8 +86,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       Navigator.pushNamed(context, cardsScreenRoute);
       return;
     }
+    final address = store.addresses[_addressIndex];
     store.placeOrder(
-      address: "${_name.text}, ${_phone.text}, ${_address.text}",
+      address: "${_name.text}, ${_phone.text}, ${address.fullAddress}",
       card: store.cards[_cardIndex],
       chargedTotal: _payable(store),
     );
@@ -136,13 +143,34 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   validator: (value) =>
                       value == null || value.isEmpty ? tr(context, "Required") : null,
                 ),
-                const SizedBox(height: defaultPadding),
-                TextFormField(
-                  controller: _address,
-                  decoration: InputDecoration(labelText: tr(context, "Address")),
-                  validator: (value) =>
-                      value == null || value.isEmpty ? tr(context, "Required") : null,
+                const SizedBox(height: defaultPadding * 1.5),
+                Row(
+                  children: [
+                    Text(tr(context, "Address"),
+                        style: Theme.of(context).textTheme.titleSmall),
+                    const Spacer(),
+                    TextButton(
+                      onPressed: () =>
+                          Navigator.pushNamed(context, addressesScreenRoute),
+                      child: Text(tr(context, "Manage")),
+                    ),
+                  ],
                 ),
+                if (store.addresses.isEmpty)
+                  Text(tr(context, "No addresses yet"))
+                else
+                  ...List.generate(store.addresses.length, (index) {
+                    final address = store.addresses[index];
+                    return RadioListTile<int>(
+                      value: index,
+                      groupValue: _addressIndex,
+                      onChanged: (value) =>
+                          setState(() => _addressIndex = value ?? 0),
+                      title: Text(address.label),
+                      subtitle: Text(address.fullAddress),
+                      contentPadding: EdgeInsets.zero,
+                    );
+                  }),
                 const SizedBox(height: defaultPadding * 1.5),
                 Text(tr(context, "Promo code"),
                     style: Theme.of(context).textTheme.titleSmall),

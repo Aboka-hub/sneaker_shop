@@ -14,6 +14,7 @@ void main() {
     // to show on first launch; tests need an actually empty starting point.
     store.cart.clear();
     store.cards.clear();
+    store.addresses.clear();
     store.orders.clear();
     store.wishlist.clear();
     store.notifyList.clear();
@@ -160,6 +161,29 @@ void main() {
     });
   });
 
+  group("Addresses", () {
+    test("addAddress assigns a stable, unique id", () {
+      final store = ShopStore.instance;
+
+      store.addAddress("Дом", "Абая 10, Алматы");
+      store.addAddress("Работа", "Достык 5, Алматы");
+
+      expect(store.addresses.map((a) => a.id).toSet(), hasLength(2));
+    });
+
+    test("removeAddress only removes the matching id", () {
+      final store = ShopStore.instance;
+      store.addAddress("Дом", "Абая 10, Алматы");
+      store.addAddress("Работа", "Достык 5, Алматы");
+      final toRemove = store.addresses.first.id;
+
+      store.removeAddress(toRemove);
+
+      expect(store.addresses, hasLength(1));
+      expect(store.addresses.single.label, "Работа");
+    });
+  });
+
   group("Wishlist & notify list", () {
     test("toggleWishlist adds then removes the product by id", () {
       final store = ShopStore.instance;
@@ -198,6 +222,17 @@ void main() {
       expect(store.cart.single.quantity, 2);
       expect(store.cart.single.size, "41");
       expect(store.isInWishlist(demoPopularProducts[1]), isTrue);
+    });
+
+    test("a saved address survives a save/load round trip", () async {
+      final store = ShopStore.instance;
+      store.addAddress("Дом", "Абая 10, Алматы");
+
+      await Future<void>.delayed(Duration.zero);
+      await store.load();
+
+      expect(store.addresses.single.label, "Дом");
+      expect(store.addresses.single.fullAddress, "Абая 10, Алматы");
     });
 
     test("a registered account survives a save/load round trip", () async {

@@ -55,6 +55,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(
         builder: (context) => const CardsScreen(),
       );
+    case addressesScreenRoute:
+      return MaterialPageRoute(
+        builder: (context) => const AddressesScreen(),
+      );
     case ordersScreenRoute:
       return MaterialPageRoute(
         builder: (context) => const OrdersScreen(),
