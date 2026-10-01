@@ -129,6 +129,9 @@ class ShopStore extends ChangeNotifier {
     _changed();
   }
 
+  @visibleForTesting
+  void resetForTesting() => _seed();
+
   void _seed() {
     cart
       ..clear()
