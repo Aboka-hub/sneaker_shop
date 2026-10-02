@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sneaker_shop/components/password_field.dart';
 import 'package:sneaker_shop/constants.dart';
 import 'package:sneaker_shop/l10n/l10n.dart';
 import 'package:sneaker_shop/models/shop_store.dart';
@@ -134,28 +135,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
             key: _passwordFormKey,
             child: Column(
               children: [
-                TextFormField(
+                PasswordField(
                   controller: _oldPassword,
-                  obscureText: true,
-                  decoration:
-                      InputDecoration(labelText: tr(context, "Current password")),
+                  labelText: tr(context, "Current password"),
                   validator: (value) =>
                       value == null || value.isEmpty ? tr(context, "Required") : null,
                 ),
                 const SizedBox(height: defaultPadding),
-                TextFormField(
+                PasswordField(
                   controller: _newPassword,
-                  obscureText: true,
-                  decoration:
-                      InputDecoration(labelText: tr(context, "New password")),
+                  labelText: tr(context, "New password"),
                   validator: (value) => passwordError(context, value),
                 ),
                 const SizedBox(height: defaultPadding),
-                TextFormField(
+                PasswordField(
                   controller: _confirmPassword,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                      labelText: tr(context, "Confirm new password")),
+                  labelText: tr(context, "Confirm new password"),
                   validator: (value) => value != _newPassword.text
                       ? tr(context, "Passwords don't match")
                       : null,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'package:sneaker_shop/l10n/l10n.dart';
+
 import '../../../../constants.dart';
 import 'product_availability_tag.dart';
 
@@ -49,12 +51,14 @@ class ProductInfo extends StatelessWidget {
                   "$rating ",
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
-                Text("($numOfReviews Reviews)")
+                Text(
+                  "(${tr(context, "{count} Reviews").replaceAll("{count}", "$numOfReviews")})",
+                )
               ],
             ),
             const SizedBox(height: defaultPadding),
             Text(
-              "Product info",
+              tr(context, "Product info"),
               style: Theme.of(context)
                   .textTheme
                   .titleMedium!

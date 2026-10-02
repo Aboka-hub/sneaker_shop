@@ -8,7 +8,12 @@ import 'offers_carousel.dart';
 class OffersCarouselAndCategories extends StatelessWidget {
   const OffersCarouselAndCategories({
     super.key,
+    required this.selected,
+    required this.onSelected,
   });
+
+  final String selected;
+  final ValueChanged<String> onSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +29,7 @@ class OffersCarouselAndCategories extends StatelessWidget {
             style: Theme.of(context).textTheme.titleSmall,
           ),
         ),
-        const Categories(),
+        Categories(selected: selected, onSelected: onSelected),
       ],
     );
   }

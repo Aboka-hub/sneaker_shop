@@ -41,6 +41,8 @@ class ProductDetailsScreen extends StatelessWidget {
       bottomNavigationBar: isProductAvailable
           ? CartButton(
               price: product.priceAfetDiscount ?? product.price,
+              title: tr(context, "Buy Now"),
+              subTitle: tr(context, "Unit price"),
               press: () {
                 customModalBottomSheet(
                   context,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:sneaker_shop/l10n/l10n.dart';
+
 import '../../../../constants.dart';
 
 class ProductAvailabilityTag extends StatelessWidget {
@@ -21,7 +23,9 @@ class ProductAvailabilityTag extends StatelessWidget {
         ),
       ),
       child: Text(
-        isAvailable ? "Available in stock" : "Currently unavailable",
+        isAvailable
+            ? tr(context, "Available in stock")
+            : tr(context, "Currently unavailable"),
         style: Theme.of(context)
             .textTheme
             .labelSmall!

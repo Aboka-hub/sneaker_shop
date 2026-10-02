@@ -36,10 +36,10 @@ class BookmarkScreen extends StatelessWidget {
                       sliver: SliverGrid(
                         gridDelegate:
                             const SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 200.0,
-                          mainAxisSpacing: defaultPadding,
-                          crossAxisSpacing: defaultPadding,
-                          childAspectRatio: 0.66,
+                          maxCrossAxisExtent: 220.0,
+                          mainAxisSpacing: 12,
+                          crossAxisSpacing: 12,
+                          childAspectRatio: 0.68,
                         ),
                         delegate: SliverChildBuilderDelegate(
                           (context, index) {

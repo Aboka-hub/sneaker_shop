@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'package:sneaker_shop/l10n/l10n.dart';
+
 import '../constants.dart';
 
 class ReviewCard extends StatelessWidget {
@@ -55,7 +57,10 @@ class ReviewCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                Text("Based on $numOfReviews Reviews"),
+                Text(
+                  tr(context, "Based on {count} reviews")
+                      .replaceAll("{count}", "$numOfReviews"),
+                ),
                 const SizedBox(height: defaultPadding),
                 RatingBar.builder(
                   initialRating: rating,
@@ -113,7 +118,7 @@ class RateBar extends StatelessWidget {
           SizedBox(
             width: 40,
             child: Text(
-              "$star Star",
+              tr(context, "{star} Star").replaceAll("{star}", "$star"),
               style: Theme.of(context).textTheme.labelSmall!.copyWith(
                   color: Theme.of(context).textTheme.bodyMedium!.color),
             ),

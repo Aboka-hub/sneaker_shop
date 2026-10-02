@@ -1,37 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sneaker_shop/route/screen_export.dart';
 
 import '../../../../constants.dart';
 import 'package:sneaker_shop/l10n/l10n.dart';
 
 class CategoryModel {
   final String name;
-  final String? svgSrc, route;
+  final String? svgSrc;
 
   CategoryModel({
     required this.name,
     this.svgSrc,
-    this.route,
   });
 }
 
 List<CategoryModel> demoCategories = [
   CategoryModel(name: "All Sneakers"),
-  CategoryModel(
-      name: "On Sale",
-      svgSrc: "assets/icons/Sale.svg",
-      route: discoverScreenRoute),
+  CategoryModel(name: "On Sale", svgSrc: "assets/icons/Sale.svg"),
   CategoryModel(name: "Men's", svgSrc: "assets/icons/Man.svg"),
   CategoryModel(name: "Women’s", svgSrc: "assets/icons/Woman.svg"),
-  CategoryModel(
-      name: "Kids", svgSrc: "assets/icons/Child.svg", route: discoverScreenRoute),
+  CategoryModel(name: "Kids", svgSrc: "assets/icons/Child.svg"),
 ];
 
 class Categories extends StatelessWidget {
   const Categories({
     super.key,
+    required this.selected,
+    required this.onSelected,
   });
+
+  final String selected;
+  final ValueChanged<String> onSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -49,20 +48,8 @@ class Categories extends StatelessWidget {
               child: CategoryBtn(
                 category: demoCategories[index].name,
                 svgSrc: demoCategories[index].svgSrc,
-                isActive: index == 0,
-                press: () {
-                  if (demoCategories[index].name == "On Sale") {
-                    Navigator.pushNamed(
-                      context,
-                      searchScreenRoute,
-                      arguments: "On Sale",
-                    );
-                    return;
-                  }
-                  if (demoCategories[index].route != null) {
-                    Navigator.pushNamed(context, demoCategories[index].route!);
-                  }
-                },
+                isActive: demoCategories[index].name == selected,
+                press: () => onSelected(demoCategories[index].name),
               ),
             ),
           ),

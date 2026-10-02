@@ -252,6 +252,27 @@ const brandSections = ["Nike", "Puma", "New Balance", "Off White"];
 double productPrice(ProductModel product) =>
     product.priceAfetDiscount ?? product.price;
 
+bool matchesHomeChip(ProductModel product, String chip) {
+  if (chip == "All Sneakers") return true;
+  if (chip == "On Sale" || chip == "On sale") {
+    return product.priceAfetDiscount != null;
+  }
+  final kids = product.tags.any(
+    (tag) => tag == "Boys" || tag == "Girls" || tag == "First steps",
+  );
+  if (chip == "Kids") return kids;
+  if (chip == "Men's") {
+    return !kids &&
+        !product.tags.contains("Girls") &&
+        !product.tags.contains("Lifestyle");
+  }
+  if (chip == "Women’s") {
+    return product.tags.contains("Girls") ||
+        (!kids && product.tags.contains("Lifestyle"));
+  }
+  return matchesCatalogSection(product, chip);
+}
+
 bool matchesCatalogSection(ProductModel product, String? section) {
   if (section == null ||
       section == "All sneakers" ||
@@ -275,7 +296,7 @@ bool matchesCatalogSection(ProductModel product, String? section) {
 
 ProductModel? productById(String id) {
   for (final product in catalogProducts()) {
-    if (product.id == id) return product;
+    if (product.id == id || product.title == id) return product;
   }
   return null;
 }
